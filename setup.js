@@ -6,7 +6,7 @@ module.exports = () => {
     refresh();
  
     // watch the .koji directory from a node_modules directory...
-    chokidar.watch(`${__dirname}/../../.koji`, ).on('all', (event, path) => {
+    chokidar.watch(`${__dirname}/../../../.koji`, ).on('all', (event, path) => {
         if(event === 'change' && path.endsWith('.json')) refresh();
     });
 }

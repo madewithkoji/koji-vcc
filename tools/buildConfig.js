@@ -13,24 +13,9 @@
  *   file to include the customizations.
  */
 
-const fs = require('fs');
+const readDirectory = require('./readDirectory.js');
 
-// Recurse through all directories to find koji dotfiles
-function readDirectory(directory) {
-  let results = [];
-  fs
-    .readdirSync(directory)
-    .forEach((fileName) => {
-      const file = `${directory}/${fileName}`;
-      const stat = fs.statSync(file);
-      if (stat && stat.isDirectory()) {
-        results = results.concat(readDirectory(file));
-      } else {
-        results.push(file);
-      }
-    });
-  return results;
-}
+const fs = require('fs');
 
 module.exports = () => {
   let projectConfig = {
