@@ -1,3 +1,4 @@
+var buildConfig = require('./tools/buildConfig.js');
 
 module.exports = () => {
     var fs = require('fs');
