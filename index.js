@@ -33,8 +33,6 @@ function getConfig() {
     return require('./config.json').config;
 }
 
-exports.wrapConsole = wrapConsole;
-exports.buildConfig = buildConfig;
 exports.pageLoad = pageLoad;
 exports.setup = setup;
 exports.request = request;

@@ -1,3 +1,5 @@
+var buildConfig = require('./tools/buildConfig.js');
+
 module.exports = () => {
     const chokidar = require('chokidar');
     refresh();
