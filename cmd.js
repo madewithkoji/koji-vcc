@@ -1,3 +1,6 @@
 #!/usr/bin/env node
 
-console.log(process.argv);
+if (process.argv[2] === 'setup') {
+    var setup = require('./setup.json');
+    setup();
+}
