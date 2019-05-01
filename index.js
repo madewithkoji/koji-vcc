@@ -12,7 +12,6 @@ function pageLoad() {
     window.addEventListener('message', ({ data }) => {
         // Global context injection
         if (data.action === 'injectGlobal') {
-            console.log('new config stuff');
             const { scope, key, value } = data.payload;
             var temp = JSON.parse(window.localStorage.getItem('koji'));
             temp[scope][key] = value;

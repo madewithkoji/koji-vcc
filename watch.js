@@ -13,7 +13,6 @@ module.exports = () => {
     readDirectory('/usr/src/app')
     .filter(path => (path.endsWith('koji.json') || path.includes('.koji')) && !path.includes('.koji-resources'))
     .forEach((path) => {
-        console.log(path);
         fs.watch(path, () => {
             refresh();
         })
