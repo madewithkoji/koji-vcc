@@ -23,7 +23,7 @@ module.exports = () => {
     routes: [],
   };
 
-  readDirectory(`${_dirname}/../../../`)
+  readDirectory(`${__dirname}/../../../`)
     .filter(path => (path.endsWith('koji.json') || path.includes('.koji')) && !path.includes('.koji-resources'))
     .forEach((path) => {
       try {
