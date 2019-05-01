@@ -4,11 +4,10 @@ var wrapConsole = require('./tools/wrapConsole.js');
 var buildConfig = require('./tools/buildConfig.js');
 var buildRoutes = require('./tools/buildRoutes.js');
 var request = require('./tools/request.js');
-var setup = require('./setup.js');
+var watch = require('./watch.js');
 
 function pageLoad() {
     wrapConsole();
-    console.log('[koji] frontend started');
 
     window.addEventListener('message', ({ data }) => {
         // Global context injection
@@ -26,6 +25,8 @@ function pageLoad() {
     window.localStorage.setItem('koji', JSON.stringify(getConfig()));
     exports.config = getConfig();
     exports.routes = buildRoutes(exports.config);
+    // output this to start the preview
+    console.log(exports.config.develop.frontend.events.loaded);
 }
 
 function getConfig() {
@@ -34,5 +35,5 @@ function getConfig() {
 }
 
 exports.pageLoad = pageLoad;
-exports.setup = setup;
+exports.watch = watch;
 exports.request = request;
