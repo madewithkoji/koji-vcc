@@ -25,8 +25,6 @@ function pageLoad() {
     window.localStorage.setItem('koji', JSON.stringify(getConfig()));
     exports.config = getConfig();
     exports.routes = buildRoutes(exports.config);
-    // output this to start the preview
-    console.log(exports.config.develop.frontend.events.loaded);
 }
 
 function getConfig() {
