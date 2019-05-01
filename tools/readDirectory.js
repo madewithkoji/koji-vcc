@@ -1,7 +1,10 @@
 const fs = require('fs');
 
 // Recurse through all directories to find koji dotfiles
-module.exports = (directory) => {
+module.exports = (directory) => readDirectory(directory);
+
+
+function readDirectory(directory) {
   let results = [];
   fs
     .readdirSync(directory)
