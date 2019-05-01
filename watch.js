@@ -11,7 +11,7 @@ module.exports = () => {
  
     // watch the .koji directory from a node_modules directory...
     readDirectory('/usr/src/app')
-    .filter(path => (path.endsWith('koji.json') || path.startsWith('../.koji')) && !path.includes('.koji-resources'))
+    .filter(path => (path.endsWith('koji.json') || path.includes('.koji')) && !path.includes('.koji-resources'))
     .forEach((path) => {
         console.log(path);
         fs.watch(path, () => {

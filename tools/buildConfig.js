@@ -24,7 +24,7 @@ module.exports = () => {
   };
 
   readDirectory('/usr/src/app')
-    .filter(path => (path.endsWith('koji.json') || path.startsWith('../.koji')) && !path.includes('.koji-resources'))
+    .filter(path => (path.endsWith('koji.json') || path.includes('.koji')) && !path.includes('.koji-resources'))
     .forEach((path) => {
       try {
         const file = JSON.parse(fs.readFileSync(path, 'utf8'));
