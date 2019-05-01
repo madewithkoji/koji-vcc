@@ -1,6 +1,7 @@
 var buildConfig = require('./tools/buildConfig.js');
 
 module.exports = () => {
+    console.log('koji-tools setup');
     const chokidar = require('chokidar');
     refresh();
  
@@ -16,5 +17,6 @@ function refresh() {
     var config = JSON.stringify({ config: JSON.parse(buildConfig()) });
     fs.writeFile(`${__dirname}/config.json`, config, (err) => {
         if (err) console.log(err);
+        console.log('new config');
     });
 }
