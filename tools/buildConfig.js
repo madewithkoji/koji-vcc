@@ -22,10 +22,10 @@ module.exports = () => {
     pages: [],
     routes: [],
   };
-
-  readDirectory(`${__dirname}/../../`)
+  readDirectory(`${__dirname}/../../..`)
     .filter(path => (path.endsWith('koji.json') || path.includes('.koji')) && !path.includes('.koji-resources'))
     .forEach((path) => {
+        console.log(path);
       try {
         const file = JSON.parse(fs.readFileSync(path, 'utf8'));
 
