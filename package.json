@@ -16,7 +16,7 @@
     "devtool"
   ],
   "bin": {
-      "koji-tools": "./cmd.js"
+    "koji-tools": "./cmd.js"
   },
   "author": "jonesnxt",
   "license": "ISC",
