@@ -5,7 +5,7 @@ var refresh = require('./refresh.js');
 module.exports = () => {
     var fs = require('fs');
     console.log('koji-tools watching');
-    const props = refresh();
+    const props = JSON.parse(refresh());
     // output what the server wants us to in order to start the preview window
     console.log(props.config.develop.frontend.events.built);
  
