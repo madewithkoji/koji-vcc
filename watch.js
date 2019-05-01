@@ -10,7 +10,7 @@ module.exports = () => {
     console.log(props.config.develop.frontend.events.built);
  
     // watch the .koji directory from a node_modules directory...
-    readDirectory('..')
+    readDirectory('/usr/src/app')
     .filter(path => (path.endsWith('koji.json') || path.startsWith('../.koji')) && !path.includes('.koji-resources'))
     .forEach((path) => {
         console.log(path);
