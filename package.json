@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jonesnxt/koji-tools.git"
+    "url": "git+https://github.com/madewithkoji/koji-tools.git"
   },
   "keywords": [
     "koji",
@@ -21,9 +21,9 @@
   "author": "jonesnxt",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jonesnxt/koji-tools/issues"
+    "url": "https://github.com/madewithkoji/koji-tools/issues"
   },
-  "homepage": "https://github.com/jonesnxt/koji-tools#readme",
+  "homepage": "https://gokoji.com",
   "dependencies": {
     "fs": "0.0.1-security"
   }
