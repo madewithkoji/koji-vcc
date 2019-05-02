@@ -5,6 +5,7 @@ var buildConfig = require('./tools/buildConfig.js');
 var buildRoutes = require('./tools/buildRoutes.js');
 var request = require('./tools/request.js');
 var watch = require('./watch.js');
+global.kojiCallbacks;
 
 function pageLoad() {
     wrapConsole();
@@ -18,6 +19,9 @@ function pageLoad() {
             exports.config[scope][key] = value;
             exports.routes = buildRoutes(exports.config);
             window.localStorage.setItem('koji', JSON.stringify(temp));
+
+            // update our hooks for an onchange event.
+            if(typeof global.kojiCallbacks['change'] === 'function') global.kojiCallbacks['change'](scope, key, value);
         }
     }, false);
 
@@ -30,6 +34,11 @@ function getConfig() {
     return require('./config.json').config;
 }
 
+function on(event, callback) {
+    global.kojiCallbacks[event] = callback;
+}
+
 exports.pageLoad = pageLoad;
 exports.watch = watch;
 exports.request = request;
+exports.on = on;

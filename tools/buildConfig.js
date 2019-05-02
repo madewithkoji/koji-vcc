@@ -14,6 +14,7 @@
  */
 
 const readDirectory = require('./readDirectory.js');
+const findRootDirectory = require('./findRootDirectory.js');
 
 const fs = require('fs');
 
@@ -22,7 +23,8 @@ module.exports = () => {
     pages: [],
     routes: [],
   };
-  readDirectory(`${__dirname}/../../../..`)
+  let root = findRootDirectory();
+  readDirectory(root)
     .filter(path => (path.endsWith('koji.json') || path.includes('.koji')) && !path.includes('.koji-resources'))
     .forEach((path) => {
         console.log(path);
