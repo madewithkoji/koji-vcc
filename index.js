@@ -35,6 +35,7 @@ function getConfig() {
 }
 
 function on(event, callback) {
+    if(!global.kojiCallbacks) global.kojiCallbacks = {};
     global.kojiCallbacks[event] = callback;
 }
 
