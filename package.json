@@ -1,6 +1,6 @@
 {
   "name": "koji-tools",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "A library that simplifies adding koji-specific features to any javascript project",
   "main": "index.js",
   "scripts": {

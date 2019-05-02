@@ -6,9 +6,9 @@
     In your `package.json` file, add a prestart script to your scripts section.
 ```json
 "scripts": {
-    ...
+    "compile": "...",
     "prestart": "koji-tools watch &",
-    ...
+    "start": "..."
 }
 ```
 
