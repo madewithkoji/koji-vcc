@@ -5,8 +5,13 @@ module.exports = () => {
     let path = `${__dirname}/../../..`;
 
     // keep walking down the street.
-    while(fs.readdir(path, (err, files) => !files.includes('.koji'))) {
-        path += '/..';
+    try {
+        while(!fs.readdirSync(path).includes('.koji')) {
+            path += '/..';
+        }
+    } catch(err) {
+        // give up and do a standard config
+        path = `${__dirname}/../../../..`
     }
 
     return path;
