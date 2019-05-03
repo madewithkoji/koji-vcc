@@ -11,6 +11,8 @@ module.exports = () => {
     // console.log(props.config.develop.frontend.events.built);
     // NOTE: figure out what to do about this one, because we cant output this before the server is ready...
  
+    // make sure that its in there to start, postinstall has been doing so weird stuff
+    refresh();
     // watch the .koji directory from a node_modules directory...
     let root = findRootDirectory();
     readDirectory(root)
