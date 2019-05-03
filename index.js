@@ -8,7 +8,7 @@ var watch = require('./watch.js');
 global.kojiCallbacks;
 
 function pageLoad() {
-    wrapConsole();
+    if(process.env.NODE_ENV !== 'production') wrapConsole();
 
     window.addEventListener('message', ({ data }) => {
         // Global context injection
@@ -21,7 +21,7 @@ function pageLoad() {
             window.localStorage.setItem('koji', JSON.stringify(temp));
 
             // update our hooks for an onchange event.
-            if(typeof global.kojiCallbacks['change'] === 'function') global.kojiCallbacks['change'](scope, key, value);
+            callEvent('change', [scope, key, value]);
         }
     }, false);
 
@@ -36,7 +36,14 @@ function getConfig() {
 
 function on(event, callback) {
     if(!global.kojiCallbacks) global.kojiCallbacks = {};
-    global.kojiCallbacks[event] = callback;
+    if(!global.kojiCallbacks[event]) global.kojiCallbacks[event] = [];
+    global.kojiCallbacks[event].push(callback);
+}
+
+function callEvent(event, params) {
+    if(global.kojiCallbacks && global.kojiCallbacks[event]) {
+        global.kojiCallbacks[event].forEach((callback) => callback.apply(null, params));
+    }
 }
 
 exports.pageLoad = pageLoad;

@@ -27,22 +27,17 @@ function checkStatus(response) {
   return response
     .json()
     .then(({ error }) => {
-        if (response.status === 401) {
-            throw new Error('unauthorized');
-        } else {
-            throw new Error(error || 'api_error');
-        }
+        throw new Error(error || 'api_error');
     });
 }
 
-function wrapFetch(route, params, authToken) {
+function wrapFetch(route, params) {
   let computedRoute = route.url;
   const computedOptions = {
     method: route.method.toLowerCase(),
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      Authorization: authToken,
     },
   };
 
@@ -74,24 +69,10 @@ function wrapFetch(route, params, authToken) {
 
 // Process an HTTP request
 module.exports = (route, params) => {
-    const token = window.localStorage.getItem('authToken');
-
-    // No auth
-    if (route.isProtected && !token) {
-        // Redirect and throw error
-        const currentPath = window.location.pathname;
-        window.location = `/login?redirect=${encodeURIComponent(currentPath)}`;
-        throw new Error('not_logged_in');
-    }
-
-  return wrapFetch(route, params, token)
+  return wrapFetch(route, params)
     .then(checkStatus)
     .then(parseJSON)
     .catch((err) => {
-      if (err.message === 'unauthorized') {
-        const currentPath = window.location.pathname;
-        window.location = `/login?redirect=${encodeURIComponent(currentPath)}`;
-      }
       throw err;
     });
 }

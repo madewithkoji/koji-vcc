@@ -6,9 +6,10 @@ var findRootDirectory = require('./tools/findRootDirectory.js');
 module.exports = () => {
     var fs = require('fs');
     console.log('koji-tools watching');
-    const props = JSON.parse(refresh());
+    // const props = JSON.parse(refresh());
     // output what the server wants us to in order to start the preview window
-    console.log(props.config.develop.frontend.events.built);
+    // console.log(props.config.develop.frontend.events.built);
+    // NOTE: figure out what to do about this one, because we cant output this before the server is ready...
  
     // watch the .koji directory from a node_modules directory...
     let root = findRootDirectory();
