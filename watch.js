@@ -18,7 +18,15 @@ module.exports = () => {
     readDirectory(root)
     .filter(path => (path.endsWith('koji.json') || path.includes('.koji')) && !path.includes('.koji-resources'))
     .forEach((path) => {
-        fs.watch(path, () => {
+        console.log('watching', path);
+        
+        let fsWait = false;
+        fs.watch(path, (eventType, filename) => {
+            if (fsWait) return;
+            fsWait = setTimeout(() => {
+                fsWait = false;
+            }, 1000);
+            console.log(eventType, filename);
             refresh();
         })
     });
