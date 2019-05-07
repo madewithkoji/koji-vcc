@@ -4,11 +4,13 @@
 1. `npm install --save koji-tools` of course!
 2. Add a watcher to your development setup
     In your `package.json` file, add a prestart script to your scripts section.
+    You may also optionally add PWA support with koji-tools through a postbuild script shown below:
 ```json
 "scripts": {
-    "compile": "...",
     "prestart": "koji-tools watch &",
-    "start": "..."
+    "start": "...",
+    "build": "...",
+    "postbuild": "koji-tools pwa"
 }
 ```
 
@@ -29,8 +31,9 @@ console.log(Koji.config.colors.backgroundColor);
 Koji.request(Koji.routes.TestRoute).then((response) => {
     console.log(response);
 })
-
 ```
+5. (optional) Add a PWA flag for your project.
+
 
 ## API
 

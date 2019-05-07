@@ -25,6 +25,10 @@ function pageLoad() {
                 callEvent('change', [scope, key, value]);
             }
         }, false);
+    } else {
+        // attempt to load a service worker...?
+        const sw = require('./serviceWorker.js');
+        sw.register();
     }
 
     window.localStorage.setItem('koji', JSON.stringify(getConfig()));
