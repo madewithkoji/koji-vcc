@@ -5,7 +5,8 @@ var buildConfig = require('./tools/buildConfig.js');
 var buildRoutes = require('./tools/buildRoutes.js');
 var request = require('./tools/request.js');
 var watch = require('./watch.js');
-global.kojiCallbacks;
+if(!global.kojiCallbacks) global.kojiCallbacks;
+if(!global.pwaInstall) global.pwaInstall;
 
 function pageLoad() {
     if(process.env.NODE_ENV !== 'production') {
@@ -29,6 +30,14 @@ function pageLoad() {
         // attempt to load a service worker...?
         const sw = require('./serviceWorker.js');
         sw.register();
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+
+            e.preventDefault();
+            global.pwaInstall = e;
+
+            callEvent('pwaPromptReady');
+        });
     }
 
     window.localStorage.setItem('koji', JSON.stringify(getConfig()));
@@ -58,3 +67,5 @@ exports.pageLoad = pageLoad;
 exports.watch = watch;
 exports.request = request;
 exports.on = on;
+exports.pwa = global.pwaInstall;
+exports.pwaPrompt = () => global.pwaInstall.prompt();
