@@ -27,16 +27,20 @@ module.exports = () => {
     const manifest = require('./tools/buildManifest.js')(config.metadata);
     const dist_files = fs.readdirSync(dist_dir);
     const precache = [];
+    let all_shas = '';
     dist_files.forEach((file) => {
       const sha = crypto.createHash('sha256').update(fs.readFileSync(`${dist_dir}/${file}`)).digest('hex');
       precache.push({ url: `/${file}`, revision: sha });
-    })
+      all_shas += sha;
+    });
+    const manifest_id = crypto.createHash('sha256').update(all_shas).digest('hex');
 
     const precache_file = `self.__precacheManifest = (self.__precacheManifest || []).concat(${JSON.stringify(precache, null, 2)});`;
-    const sw_file = fs.readFileSync(`${__dirname}/tools/service-worker.js`);
+    const sw_file = fs.readFileSync(`${__dirname}/tools/service-worker.js`).toString();
+    const sw_file_injected = sw_file.replace('[inject_id]', manifest_id);
 
-    fs.writeFileSync(`${dist_dir}/precache-manifest.js`, precache_file);
-    fs.writeFileSync(`${dist_dir}/service-worker.js`, sw_file);
+    fs.writeFileSync(`${dist_dir}/precache-manifest-${manifest_id}.js`, precache_file);
+    fs.writeFileSync(`${dist_dir}/service-worker.js`, sw_file_injected);
     fs.writeFileSync(`${dist_dir}/manifest.webmanifest`, manifest);
     
 };
