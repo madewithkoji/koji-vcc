@@ -33,12 +33,14 @@ function checkStatus(response) {
 
 function wrapFetch(route, params) {
   let computedRoute = route.url;
+  let cacheOptions = route.cache || 'no-cache';
   const computedOptions = {
     method: route.method.toLowerCase(),
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
+    cache: cacheOptions,
   };
 
   // Replace all named parameters in the URL

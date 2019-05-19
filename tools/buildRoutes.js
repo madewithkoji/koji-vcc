@@ -16,11 +16,11 @@ module.exports = (config) => {
     let routeConfig = {};
     if (config.backend && config.routes) {
         const backendHost = window.location.host.replace('frontend', 'backend');
-        routeConfig = config.routes.reduce((acc, { name, route, method, isProtected }) => {
+        routeConfig = config.routes.reduce((acc, { name, route, method, cache }) => {
             acc[name] = {
                 url: config.backend[name],
                 method,
-                isProtected,
+                cache,
             };
             return acc;
         }, {});

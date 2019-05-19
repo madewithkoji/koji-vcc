@@ -42,7 +42,8 @@ Koji.request(Koji.routes.TestRoute).then((response) => {
     Sets up `Koji.config` parameters for each client and handles communication between the Koji live preview iframe and your app.
 
 - `Koji.request()`
-    Wrapper for fetch that takes objects from `Koji.routes`.
+    Wrapper for fetch that takes objects from `Koji.routes`.    
+    *\*Note: as of 0.4.2, a `cache` option can be added to a routes koji.json file, default is `no-cache` in order to avoid stale caching.*
 - `Koji.pwaPrompt()`
     After the `'pwaPromptReady'` event has fired, this function will make a popup installation prompt appear.   
     *\*Note: this function must be run from some user input. (like onClick)*
@@ -67,3 +68,28 @@ On a deployed project that has `koji-tools pwa` in the `"postbuild"` section of 
 See `Koji.pwaPrompt()`.  
     
 Get Started at [GoKoji.com](https://gokoji.com)
+
+## Changelog
+
+### 0.4.2:
+- added caching options to Koji.request that are customizable in a routes koji.json
+- changed default caching stategy to `no-cache` to keep request freshness
+
+### 0.4.1:
+- minor bug fixes
+
+### 0.4.0:
+- Added pwa prompt support
+- the function `Koji.pwaPrompt()`
+- the callback handler `Koji.on('pwaPromptReady', () => { ... })`
+
+### 0.3.0:
+- Added easy to setup pwa support for projects with koji tools
+
+### 0.2.0:
+- Added callback handlers
+- minor usability fixes
+
+### 0.1.0:
+- Initial commit.
+- Barely working but technically working
