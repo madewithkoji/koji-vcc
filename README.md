@@ -1,6 +1,6 @@
 # koji-tools
 *A simple library for adding koji-specific features to a node project.*
-## Usage
+## Usage - Frontend
 1. `npm install --save koji-tools` of course!
 2. Add a watcher to your development setup
     In your `package.json` file, add a prestart script to your scripts section.
@@ -32,6 +32,29 @@ Koji.request(Koji.routes.TestRoute).then((response) => {
     console.log(response);
 })
 ```
+
+## Usage - Backend
+1. Just like in frontend, install koji tools: `npm install --save koji-tools`
+2. Add a watcher to your development setup
+    In your `package.json` file, add a prestart script to your scripts section.
+```json
+"scripts": {
+    "prestart": "koji-tools watch &",
+    "start": "..."
+}
+```
+3. Import koji-tools in your routes to get access to Koji.config. Example:
+```js
+import Koji from 'koji-tools';
+
+export default async (req, res) => {
+    console.log('request running...');
+    const content = Koji.config.strings.content;
+    res.status(200).json({ content });
+}
+```    
+*\*NOTE: As of 0.4.3, only `Koji.config` is supported for backend node.js usage. Other koji-tools functionality is not available.*
+
 
 ## API
 
@@ -70,6 +93,9 @@ See `Koji.pwaPrompt()`.
 Get Started at [GoKoji.com](https://gokoji.com)
 
 ## Changelog
+
+### 0.4.3:
+- Support for backend to use `Koji.config`
 
 ### 0.4.2:
 - added caching options to Koji.request that are customizable in a routes koji.json

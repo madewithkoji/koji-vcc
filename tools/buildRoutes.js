@@ -14,7 +14,8 @@
 
 module.exports = (config) => {
     let routeConfig = {};
-    if (config.backend && config.routes) {
+    const isBrowser = typeof window !== 'undefined' && typeof window.document !== 'undefined';
+    if (config.backend && config.routes && isBrowser) {
         const backendHost = window.location.host.replace('frontend', 'backend');
         routeConfig = config.routes.reduce((acc, { name, route, method, cache }) => {
             acc[name] = {
