@@ -3,6 +3,7 @@
 var wrapConsole = require('./tools/wrapConsole.js');
 var buildConfig = require('./tools/buildConfig.js');
 var buildRoutes = require('./tools/buildRoutes.js');
+var vccTest = require('./tools/vccTest.js');
 var request = require('./tools/request.js');
 var watch = require('./watch.js');
 if(!global.kojiCallbacks) global.kojiCallbacks;
@@ -26,6 +27,8 @@ function pageLoad() {
                 callEvent('change', [scope, key, value]);
             }
         }, false);
+
+        vccTest(getConfig());
     } else {
         // attempt to load a service worker...?
         const sw = require('./serviceWorker.js');
