@@ -33,6 +33,14 @@ Koji.request(Koji.routes.TestRoute).then((response) => {
 })
 ```
 
+### Auto test VCC's
+`vccTest` is a function to auto test koji VCC's by automatically changing all VCC's, or printing un-handled VCC's to the console.
+
+To run `vccTest` Open the browser console and run:
+```js
+vccTest();
+```
+
 ## Usage - Backend
 1. Just like in frontend, install koji tools: `npm install --save koji-tools`
 2. Add a watcher to your development setup
