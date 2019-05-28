@@ -102,6 +102,9 @@ Get Started at [GoKoji.com](https://gokoji.com)
 
 ## Changelog
 
+### 0.5.0:
+- VCC testing tools added
+
 ### 0.4.3:
 - Support for backend to use `Koji.config`
 
