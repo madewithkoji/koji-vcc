@@ -7,12 +7,12 @@ if(!global.requestUrl) global.requestUrl = 'http://localhost:3125';
 function checkPurchase(productName) {
     return new Promise((resolve, reject) => {
       const userId = window.localStorage.getItem('userId');
-      if(!userId) reject();
+      if(!userId) resolve({ success: false });
 
       fetch(`${global.requestUrl}/v1/payment/iap/get?userId=${userId}&productName=${productName}`).then((a) => a.json()).then((resp) => {
         resolve(resp);
       }).catch((err) => {
-        reject(err);
+        resolve({ success: false });
       });
     });
 }
