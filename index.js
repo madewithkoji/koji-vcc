@@ -6,10 +6,12 @@ var buildRoutes = require('./tools/buildRoutes.js');
 var attachVCCTest = require('./tools/vccTest.js');
 var request = require('./tools/request.js');
 var watch = require('./watch.js');
+var payments = require('./payments.js');
+
 if(!global.kojiCallbacks) global.kojiCallbacks;
 if(!global.pwaInstall) global.pwaInstall;
 
-function pageLoad() {
+function pageLoad(options) {
     if(process.env.NODE_ENV !== 'production') {
         wrapConsole();
 
@@ -44,6 +46,11 @@ function pageLoad() {
         });
     }
 
+    if(options.payments) {
+        // enable payments api
+        payments.init();
+    }
+
     window.localStorage.setItem('koji', JSON.stringify(getConfig()));
     exports.config = getConfig();
     exports.routes = buildRoutes(exports.config);
@@ -72,4 +79,5 @@ exports.watch = watch;
 exports.request = request;
 exports.on = on;
 exports.pwa = global.pwaInstall;
+exports.payments = payments;
 exports.pwaPrompt = () => global.pwaInstall.prompt();

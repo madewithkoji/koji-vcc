@@ -1,0 +1,188 @@
+
+#koji-payments-overlay {
+	background-color: rgba(0,0,0,0.5);
+	width: 100%;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000;
+}
+
+#koji-payments-box {
+	background-color: #FFF;
+	padding: 24px;
+	min-width: 300px;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	box-shadow: 0 4px 40px 4px rgba(0,0,0,0.5);
+}
+
+#koji-payments-title {
+	font-weight: 400;
+	color: #000;
+	font-size: 24px;
+	line-height: 34px;
+}
+
+#koji-payments-subtitle {
+	font-size: 18px;
+	line-height: 24px;
+	color: #666;
+}
+
+#koji-payments-price {
+	padding: 16px;
+	font-size: 24px;
+	font-weight: 300;
+	width: calc(100% - 30px);
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+#koji-payments-payment-methods {
+	width: 100%;
+}
+
+#koji-payments-request-button {
+	margin-top: 16px;
+	width: 100%;
+}
+
+#koji-payments-card {
+	margin-top: 8px;
+	width: 100%;
+	font-size: 18px;
+}
+
+#koji-payments-card.koji-payments-or {
+	margin-top: 36px;
+	border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+#koji-payments-card.koji-payments-or::before {
+	content: ' OR ';
+	background-color: #FFF;
+	position: relative;
+	bottom: 12px;
+	padding: 10px;
+}
+
+#koji-payments-card-link {
+	margin-top: 24px;
+	font-size: 16px;
+	color: #2378F3;
+	cursor: pointer;
+}
+
+#koji-payments-card-link:hover {
+	text-decoration: underline;
+}
+
+#koji-payments-card-number {
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+	padding: 4px;
+	text-align: left;
+}
+
+#koji-payments-card-number::before {
+	content: 'Card Number:';
+	color: #666;
+	text-align: left;
+	font-size: 13px;
+	line-height: 25px;
+}
+
+#koji-payments-card-expiry {
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+	padding: 4px;
+	text-align: left;
+	display: inline-block;
+	width: calc(50% - 24px);
+	margin-right: 12px;
+	float: left;
+}
+
+#koji-payments-card-expiry::before {
+	content: 'Expiration:';
+	color: #666;
+	text-align: left;
+	font-size: 13px;
+	line-height: 25px;
+}
+
+#koji-payments-card-cvc {
+	display: inline-block;
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+	padding: 4px;
+	text-align: left;
+	width: calc(50% - 24px);
+	margin-left: 12px;
+	float: right;
+}
+
+#koji-payments-card-cvc::before {
+	content: 'Security Code:';
+	color: #666;
+	text-align: left;
+	font-size: 13px;
+	line-height: 25px;
+}
+
+#koji-payments-card-email {
+	border: none;
+	outline: none;
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+	padding: 4px;
+	text-align: left;
+}
+
+#koji-payments-card-email::before {
+	content: 'Email:';
+	color: #666;
+	text-align: left;
+	font-size: 13px;
+	line-height: 25px;
+}
+
+#koji-payments-card-email-input {
+	border: none;
+	outline: none;
+	width: 100%;
+	font-size: 16px;
+	color: #32325D;
+	font-weight: 500;
+}
+
+#koji-payments-card-email-input::placeholder {
+	color: #CFD7DF;
+}
+
+#koji-payments-card-button {
+	width: 100%;
+	margin-top: 16px;
+	background-color: #2378F3;
+	border: none;
+	outline: none;
+	padding: 10px;
+	color: #FFF;
+	font-size: 16px;
+	border-radius: 4px;
+	transition: background-color 0.2s ease-in-out;
+	cursor: pointer;
+}
+
+#koji-payments-card-button:hover {
+	background-color: #45A9FF;
+}
+
+#koji-payments-card-errors {
+	color: #FF4136;
+	font-size: 14px;
+	margin-top: 10px;
+	display: inline-block;
+}

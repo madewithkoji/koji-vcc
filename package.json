@@ -25,7 +25,6 @@
   },
   "homepage": "https://gokoji.com",
   "dependencies": {
-    "fs": "0.0.1-security"
   },
   "browser": { "fs": false, "path": false, "os": false}
 }
