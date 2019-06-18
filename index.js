@@ -46,7 +46,7 @@ function pageLoad(options) {
         });
     }
 
-    if(options.payments) {
+    if(options && options.payments) {
         // enable payments api
         payments.init();
     }

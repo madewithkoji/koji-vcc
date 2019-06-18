@@ -102,6 +102,9 @@ Get Started at [GoKoji.com](https://gokoji.com)
 
 ## Changelog
 
+### 0.5.1:
+- Starting to move away from strict dependance on metadata.json, allow for plugin PWA manifest support.
+
 ### 0.5.0:
 - VCC testing tools added
 
