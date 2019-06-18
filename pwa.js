@@ -23,8 +23,8 @@ module.exports = () => {
     const newIndex = index.replace('<head>', '<head><link rel="manifest" href="./manifest.webmanifest"/>');
     fs.writeFileSync(`${dist_dir}/index.html`, newIndex);
 
-
-    const manifest = require('./tools/buildManifest.js')(config.metadata);
+    const metadata = config.metadata || {};
+    const manifest = require('./tools/buildManifest.js')(metadata);
     const dist_files = fs.readdirSync(dist_dir);
     const precache = [];
     let all_shas = '';
