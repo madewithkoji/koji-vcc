@@ -97,10 +97,17 @@ Koji.on('pwaPromptReady', () => { ... });
 ```
 On a deployed project that has `koji-tools pwa` in the `"postbuild"` section of the package.json file, this event will fire when the PWA Install Prompt is ready to be called.
 See `Koji.pwaPrompt()`.  
+
+- `Koji.resolveSecret(key)`
+    Resolve the value of a user's secret from the Koji Keystore. Secrets are used for values that are not intended to
+    be read by other users when a project is remixed.
     
 Get Started at [GoKoji.com](https://gokoji.com)
 
 ## Changelog
+
+### 0.5.2 
+- Resolve secrets
 
 ### 0.5.1:
 - Starting to move away from strict dependance on metadata.json, allow for plugin PWA manifest support.
