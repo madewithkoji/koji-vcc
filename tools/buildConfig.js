@@ -56,5 +56,12 @@ module.exports = () => {
       }
     });
 
+  projectConfig.serviceMap = Object.keys(process.env).reduce((acc, cur) => {
+    if (cur.startsWith('KOJI_SERVICE_URL')) {
+      acc[cur.replace('KOJI_SERVICE_URL_', '').toLowerCase()] = process.env[cur];
+    }
+    return acc;
+  }, {});
+
   return JSON.stringify(projectConfig);
 }
