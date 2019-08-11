@@ -25,6 +25,11 @@
   },
   "homepage": "https://gokoji.com",
   "dependencies": {
+    "ansi-colors-and-styles": "^1.0.3"
   },
-  "browser": { "fs": false, "path": false, "os": false}
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false
+  }
 }
