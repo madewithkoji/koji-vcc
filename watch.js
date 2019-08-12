@@ -16,18 +16,22 @@ module.exports = () => {
     // watch the .koji directory from a node_modules directory...
     let root = findRootDirectory();
     readDirectory(root)
-    .filter(path => (path.endsWith('koji.json') || path.includes('.koji')) && !path.includes('.koji-resources'))
-    .forEach((path) => {
-        console.log('watching', path);
-        
-        let fsWait = false;
-        fs.watch(path, (eventType, filename) => {
-            if (fsWait) return;
-            fsWait = setTimeout(() => {
-                fsWait = false;
-            }, 1000);
-            console.log(eventType, filename);
-            refresh();
-        })
-    });
+        .filter(path => (path.endsWith('koji.json') || path.includes('.koji')) && !path.includes('.koji-resources'))
+        .forEach((path) => {
+            console.log('Watching', path);
+            
+            let fsWait = false;
+            fs.access(path, fs.F_OK, (err) => {
+                if (!err) {
+                    fs.watch(path, (eventType, filename) => {
+                        if (fsWait) return;
+                        fsWait = setTimeout(() => {
+                            fsWait = false;
+                        }, 1000);
+                        console.log(eventType, filename);
+                        refresh();
+                    });
+                }
+            });
+        });
 }
