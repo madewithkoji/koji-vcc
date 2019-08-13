@@ -3,7 +3,7 @@
 var wrapConsole = require('./tools/wrapConsole.js');
 var buildConfig = require('./tools/buildConfig.js');
 var buildRoutes = require('./tools/buildRoutes.js');
-var attachVCCTest = require('./tools/vccTest.js');
+// var attachVCCTest = require('./tools/vccTest.js');
 var request = require('./tools/request.js');
 var watch = require('./watch.js');
 
@@ -30,7 +30,7 @@ function pageLoad(options) {
         }, false);
         
         //
-        attachVCCTest(getConfig());
+        // attachVCCTest(getConfig());
     } else {
         // attempt to load a service worker...?
         const sw = require('./serviceWorker.js');
