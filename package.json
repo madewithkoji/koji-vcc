@@ -23,7 +23,7 @@
   "bugs": {
     "url": "https://github.com/madewithkoji/koji-tools/issues"
   },
-  "homepage": "https://gokoji.com",
+  "homepage": "https://withkoji.com",
   "dependencies": {
     "ansi-colors-and-styles": "^1.0.3"
   },
