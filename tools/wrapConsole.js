@@ -30,7 +30,7 @@ module.exports = () => {
 
   try {
     const consoleOverrides = {
-      ...console,
+      // ...console,
       log: (...args) => {
         window.__originalConsole.log.apply(this, args);
         if (window.parent) {
