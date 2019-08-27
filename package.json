@@ -18,6 +18,9 @@
     "koji",
     "devtool"
   ],
+  "bin": {
+    "koji-tools": "./src/bin/cmd.js"
+  },
   "author": "jonesnxt",
   "license": "ISC",
   "bugs": {
