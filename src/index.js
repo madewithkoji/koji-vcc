@@ -5,7 +5,6 @@ import request from './tools/request';
 import watch from './watch';
 
 if(!global.kojiCallbacks) global.kojiCallbacks;
-if(!global.pwaInstall) global.pwaInstall;
 
 function pageLoad(options) {
     if(process.env.NODE_ENV !== 'production') {
@@ -28,18 +27,6 @@ function pageLoad(options) {
         
         //
         // attachVCCTest(getConfig());
-    } else {
-        // attempt to load a service worker...?
-        const sw = require('./serviceWorker.js');
-        sw.register();
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-
-            e.preventDefault();
-            global.pwaInstall = e;
-
-            callEvent('pwaPromptReady');
-        });
     }
 
     window.localStorage.setItem('koji', JSON.stringify(getConfig()));
@@ -69,8 +56,6 @@ exports.pageLoad = pageLoad;
 exports.watch = watch;
 exports.request = request;
 exports.on = on;
-exports.pwa = global.pwaInstall;
-exports.pwaPrompt = () => global.pwaInstall.prompt();
 
 exports.resolveSecret = (key) => {
     if (!process || !process.env || !process.env.KOJI_SECRETS) {
