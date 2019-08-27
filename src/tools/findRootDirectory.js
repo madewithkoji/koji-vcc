@@ -3,7 +3,7 @@ const path = require('path')
 
 module.exports = () => {
     // puts us in the directory where this is a node module of.
-    let dirPath = process.cwd()
+    let dirPath = '/home/sean/Koji/parcel'; // process.cwd()
     
     // keep walking down the street.
     try {

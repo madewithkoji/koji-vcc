@@ -29,6 +29,7 @@ module.exports = () => {
     .forEach((path) => {
       try {
         const file = JSON.parse(fs.readFileSync(path, 'utf8'));
+        console.log('f', file);
 
         Object.keys(file).forEach((key) => {
           // If the key already exists in the project config, use it

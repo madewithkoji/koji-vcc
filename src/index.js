@@ -1,11 +1,8 @@
-"use strict";
-
-var wrapConsole = require('./tools/wrapConsole.js');
-var buildConfig = require('./tools/buildConfig.js');
-var buildRoutes = require('./tools/buildRoutes.js');
-// var attachVCCTest = require('./tools/vccTest.js');
-var request = require('./tools/request.js');
-var watch = require('./watch.js');
+import wrapConsole from './tools/wrapConsole';
+import buildConfig from './tools/buildConfig';
+import buildRoutes from './tools/buildRoutes';
+import request from './tools/request';
+import watch from './watch';
 
 if(!global.kojiCallbacks) global.kojiCallbacks;
 if(!global.pwaInstall) global.pwaInstall;
