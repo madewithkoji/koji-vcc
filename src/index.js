@@ -1,6 +1,5 @@
 import wrapConsole from './tools/wrapConsole';
 import buildConfig from './tools/buildConfig';
-import buildRoutes from './tools/buildRoutes';
 import request from './tools/request';
 import watch from './watch';
 
@@ -17,21 +16,16 @@ function pageLoad(options) {
                 var temp = JSON.parse(window.localStorage.getItem('koji'));
                 temp[scope][key] = value;
                 exports.config[scope][key] = value;
-                exports.routes = buildRoutes(exports.config);
                 window.localStorage.setItem('koji', JSON.stringify(temp));
 
                 // update our hooks for an onchange event.
                 callEvent('change', [scope, key, value]);
             }
         }, false);
-        
-        //
-        // attachVCCTest(getConfig());
     }
 
     window.localStorage.setItem('koji', JSON.stringify(getConfig()));
     exports.config = getConfig();
-    exports.routes = buildRoutes(exports.config);
 }
 
 function getConfig() {
@@ -51,7 +45,6 @@ function callEvent(event, params) {
 }
 
 exports.config = getConfig();
-exports.routes = buildRoutes(exports.config);
 exports.pageLoad = pageLoad;
 exports.watch = watch;
 exports.request = request;
