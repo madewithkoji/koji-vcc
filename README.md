@@ -1,4 +1,24 @@
 # koji-tools
+
+The primary function of this package is to generate a consumable configuration for your Koji application, based on the .koji json files in your project.
+
+## Installation
+
+`npm install koji-tools`
+
+## Usage (Client)
+
+`import kojiTools from 'koji-tools'`
+
+Use this import in your app's main js file to set up console debugging in development mode.
+
+`import { config } from 'koji-tools'`
+
+Import `config` to get access to the values that are set in your VCC's and also to make calls to the backend.
+
+___
+
+# koji-tools
 *A simple library for adding koji-specific features to a node project.*
 ## Usage - Frontend
 1. `npm install --save koji-tools` of course!
