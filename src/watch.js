@@ -1,10 +1,9 @@
-import fs from 'fs';
+import chokidar from 'chokidar';
 import readDirectory from './tools/readDirectory';
 import refresh from './refresh';
 import findRootDirectory from './tools/findRootDirectory';
 
 const watch = () => {
-  console.log('koji-tools watching');
   // const props = JSON.parse(refresh());
   // output what the server wants us to in order to start the preview window
   // console.log(props.config.develop.frontend.events.built);
@@ -14,25 +13,20 @@ const watch = () => {
   // make sure that its in there to start, postinstall has been doing so weird stuff
   refresh();
   // watch the .koji directory from a node_modules directory...
-  const root = findRootDirectory();
-  readDirectory(root)
-    .filter((path) => (path.endsWith('koji.json') || path.includes('.koji')) && !path.includes('.koji-resources'))
-    .forEach((path) => {
-      console.log('Watching', path);
+  const files = readDirectory(findRootDirectory()).filter((path) => (path.endsWith('koji.json') || path.includes('.koji')) && !path.includes('.koji-resources'));
 
-      let fsWait = false;
-      fs.access(path, fs.F_OK, (err) => {
-        if (!err) {
-          fs.watch(path, (eventType, filename) => {
-            if (fsWait) return;
-            fsWait = setTimeout(() => {
-              fsWait = false;
-            }, 1000);
-            console.log(eventType, filename);
-            refresh();
-          });
-        }
-      });
+  const watcher = chokidar.watch(files, {
+
+  });
+
+  watcher
+    .on('error', (error) => console.error(`Watcher error: ${error}`))
+    .on('change', () => {
+      refresh();
+    })
+    .on('ready', () => {
+      const watched = watcher.getWatched();
+      Object.keys(watched).map((path) => watched[path].map((file) => console.log(`Watching: ${path}/${file}`)));
     });
 };
 

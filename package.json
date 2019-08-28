@@ -28,7 +28,8 @@
   },
   "homepage": "https://withkoji.com",
   "dependencies": {
-    "ansi-colors-and-styles": "^1.0.3"
+    "ansi-colors-and-styles": "^1.0.3",
+    "chokidar": "^3.0.2"
   },
   "browser": {
     "fs": false,
