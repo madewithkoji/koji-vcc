@@ -1,7 +1,6 @@
 import getConfig from './tools/getConfig';
 import pageLoad from './pageLoad';
 
-// Keeping this as legacy
 // eslint-disable-next-line no-unused-expressions
 if (!global.kojiCallbacks) global.kojiCallbacks;
 
@@ -14,8 +13,9 @@ if (window && !window.kojiPageLoadRan) {
   }
 }
 
-export { default as resolveSecret } from './tools/resolveSecret';
 export const config = getConfig();
+export { default as pageLoad } from './pageLoad';
+export { default as resolveSecret } from './tools/resolveSecret';
 
 const Koji = {};
 export default Koji;
