@@ -9,7 +9,6 @@ const pageLoad = () => {
       if (data.action === 'injectGlobal') {
         const { scope, key, value } = data.payload;
         const temp = JSON.parse(window.localStorage.getItem('koji'));
-        console.log('t', temp);
         temp[scope][key] = value;
         // exports.config[scope][key] = value;
         window.localStorage.setItem('koji', JSON.stringify(temp));
