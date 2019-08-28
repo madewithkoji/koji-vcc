@@ -3,11 +3,11 @@
 /* eslint-disable global-require */
 
 if (process.argv[2] === 'watch') {
-  const watch = require('../dist/watch.js');
+  const watch = require('../dist/watch.js').default;
   watch();
 }
 
 if (process.argv[2] === 'postinstall') {
-  const refresh = require('../dist/refresh.js');
+  const refresh = require('../dist/refresh.js').default;
   refresh();
 }
