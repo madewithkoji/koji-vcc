@@ -1,13 +1,13 @@
 #!/usr/bin/env node
-
-var watch = require('./dist/watch.js')
+/* eslint-disable import/no-unresolved */
+/* eslint-disable global-require */
 
 if (process.argv[2] === 'watch') {
-    var watch = require('./watch.js');
-    watch();
+  const watch = require('../dist/watch.js');
+  watch();
 }
 
 if (process.argv[2] === 'postinstall') {
-    var refresh = require('./refresh.js');
-    refresh();
+  const refresh = require('../dist/refresh.js');
+  refresh();
 }
