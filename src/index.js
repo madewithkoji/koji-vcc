@@ -12,4 +12,7 @@ const Koji = {
     console.warn('Koji.pageLoad() is deprecated and no longer needs to be called.\nYou can safely remove this call from your project!');
   },
 };
+
+// Note: The default export is only for providing helpful feedback to developers
+// that are migrating from @koji-tools
 export default Koji;
