@@ -40,10 +40,14 @@ const writeConfig = () => {
   }, {});
 
   // Write the generated config to a json file
-  fs.writeFileSync(
-    `${__dirname}/../res/config.json`,
-    JSON.stringify(projectConfig, null, 2),
-  );
+  try {
+    fs.writeFileSync(
+      `${__dirname}/../res/config.json`,
+      JSON.stringify(projectConfig, null, 2),
+    );
+  } catch (err) {
+    //
+  }
 };
 
 export default writeConfig;
