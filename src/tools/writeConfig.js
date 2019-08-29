@@ -2,10 +2,11 @@ import fs from 'fs';
 import readDirectory from './readDirectory';
 import findRootDirectory from './findRootDirectory';
 
-const buildConfig = () => {
+const writeConfig = () => {
   const projectConfig = {};
   const root = findRootDirectory();
 
+  // Add config items from koji json files
   readDirectory(root)
     .filter((path) => (path.endsWith('koji.json') || path.includes('.koji')) && !path.includes('.koji-resources'))
     .forEach((path) => {
@@ -38,7 +39,11 @@ const buildConfig = () => {
     return acc;
   }, {});
 
-  return JSON.stringify(projectConfig);
+  // Write the generated config to a json file
+  fs.writeFileSync(
+    `${__dirname}/../res/config.json`,
+    JSON.stringify(projectConfig, null, 2),
+  );
 };
 
-export default buildConfig;
+export default writeConfig;

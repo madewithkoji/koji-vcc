@@ -8,6 +8,6 @@ if (process.argv[2] === 'watch') {
 }
 
 if (process.argv[2] === 'postinstall') {
-  const refresh = require('../dist/refresh.js').default;
-  refresh();
+  const writeConfig = require('../dist/tools/writeConfig.js').default;
+  writeConfig();
 }
