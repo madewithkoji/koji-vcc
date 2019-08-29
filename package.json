@@ -28,6 +28,9 @@
     "url": "https://github.com/madewithkoji/koji-tools/issues"
   },
   "homepage": "https://withkoji.com",
+  "devDependencies": {
+    "@types/node": "^12.7.2"
+  },
   "dependencies": {
     "ansi-colors-and-styles": "^1.0.3",
     "chokidar": "^3.0.2"
