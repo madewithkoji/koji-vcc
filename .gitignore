@@ -1,7 +1,6 @@
 ## Generated
 node_modules/
 dist/
-config.json
 
 ## Dev
 .idea/
