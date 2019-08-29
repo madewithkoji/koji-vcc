@@ -9,7 +9,7 @@ This package will
 
 ### Installation
 
-`npm install @withkoji/vcc`
+`npm install --save @withkoji/vcc`
 
 
 ### Usage (Client)
