@@ -1,21 +1,15 @@
 import getConfig from './tools/getConfig';
-import pageLoad from './pageLoad';
-
-// eslint-disable-next-line no-unused-expressions
-if (!global.kojiCallbacks) global.kojiCallbacks;
-
-if (window && !window.kojiPageLoadRan) {
-  try {
-    pageLoad();
-    window.kojiPageLoadRan = true;
-  } catch (err) {
-    window.kojiPageLoadRan = false;
-  }
-}
 
 export const config = getConfig();
-export { default as pageLoad } from './pageLoad';
 export { default as resolveSecret } from './tools/resolveSecret';
 
-const Koji = {};
+const Koji = {
+  get config() {
+    console.warn('Koji.config is deprecated.\nYou can access the configuration by calling `import { config } from \'koji-vcc\'`');
+    return {};
+  },
+  pageLoad() {
+    console.warn('Koji.pageLoad() is deprecated and no longer needs to be called.\nYou can safely remove this call from your project!');
+  },
+};
 export default Koji;
