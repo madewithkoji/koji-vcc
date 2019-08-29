@@ -4,20 +4,15 @@ import refresh from './refresh';
 import findRootDirectory from './tools/findRootDirectory';
 
 const watch = () => {
-  // const props = JSON.parse(refresh());
-  // output what the server wants us to in order to start the preview window
-  // console.log(props.config.develop.frontend.events.built);
-  // NOTE: figure out what to do about this one, because we cant output this before
-  // the server is ready...
-
-  // make sure that its in there to start, postinstall has been doing so weird stuff
+  // Call once before postinstall?
   refresh();
-  // watch the .koji directory from a node_modules directory...
+
+  // Watch the .koji directory from a node_modules directory
   const files = readDirectory(findRootDirectory()).filter((path) => (path.endsWith('koji.json') || path.includes('.koji')) && !path.includes('.koji-resources'));
 
-  const watcher = chokidar.watch(files, {
-
-  });
+  // Note: Polling is used by default in the container via
+  // the CHOKIDAR_USEPOLLING=1 env that is set in the container
+  const watcher = chokidar.watch(files);
 
   watcher
     .on('error', (error) => console.error(`Watcher error: ${error}`))
