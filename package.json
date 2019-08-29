@@ -1,11 +1,15 @@
 {
-  "name": "koji-tools",
-  "version": "0.5.45",
-  "description": "A library that simplifies adding koji-specific features to any javascript project",
-  "main": "index.js",
+  "name": "@withkoji/vcc",
+  "version": "1.0.0",
+  "description": "A library that exposes VCC and ENV values for easy consumption in a Koji app",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "node ./cmd.js postinstall"
+    "build": "babel src --presets @babel/preset-env --out-dir dist --copy-files",
+    "prepublishOnly": "npm run build",
+    "prepack": "npm run build",
+    "postinstall": "node ./bin/cmd.js postinstall",
+    "start-dev": "babel src --watch --out-dir dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -16,7 +20,7 @@
     "devtool"
   ],
   "bin": {
-    "koji-tools": "./cmd.js"
+    "koji-vcc": "./bin/cmd.js"
   },
   "author": "jonesnxt",
   "license": "ISC",
@@ -24,9 +28,6 @@
     "url": "https://github.com/madewithkoji/koji-tools/issues"
   },
   "homepage": "https://withkoji.com",
-  "devDependencies": {
-    "@types/node": "^12.7.2"
-  },
   "dependencies": {
     "ansi-colors-and-styles": "^1.0.3",
     "chokidar": "^3.0.2"
@@ -36,5 +37,13 @@
     "path": false,
     "os": false,
     "child_process": false
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "eslint": "^6.2.2",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2"
   }
 }

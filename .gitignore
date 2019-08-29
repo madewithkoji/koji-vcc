@@ -1,3 +1,7 @@
+## Generated
 node_modules/
-config.json
+dist/
+
+## Dev
 .idea/
+.vscode/

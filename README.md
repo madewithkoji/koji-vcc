@@ -1,142 +1,131 @@
-# koji-tools
-*A simple library for adding koji-specific features to a node project.*
-## Usage - Frontend
-1. `npm install --save koji-tools` of course!
-2. Add a watcher to your development setup
-    In your `package.json` file, add a prestart script to your scripts section.
-    You may also optionally add PWA support with koji-tools through a postbuild script shown below:
-```json
-"scripts": {
-    "prestart": "koji-tools watch &",
-    "start": "...",
-    "build": "...",
-    "postbuild": "koji-tools pwa"
+## @withkoji/vcc
+
+This package will 
+
+- ingest the VCC json files
+- monitor those files and reload the project when they change
+- map some `ENV` variables to make endpoints easily accessible
+
+
+### Installation
+
+`npm install @withkoji/vcc`
+
+
+### Usage (Client)
+
+`import Koji from '@withkoji/vcc'`
+
+Import Koji to get access to the values that are set in your VCC and also to make calls to the backend. VCC values are available in `Koji.config`.
+
+
+### What is a VCC?
+
+VCCs are Visual Customization Controls. They allow you to use values in your application that are easily editable by other users who want to remix your application.
+
+VCC files are JSON and live in the `.koji/customization` folder.
+
+
+#### Sample VCC File
+
+```
+// .koji/customization/setttings.json
+
+{
+  "settings": {
+    "name": "Hello World!"
+  },
+  "@@editor": [
+    {
+      "key": "settings",
+      "name": "App settings",
+      "icon": "⚙️",
+      "source": "settings.json",
+      "fields": [
+          {
+            "key": "name",
+            "name": "App name",
+            "type": "text"
+          }
+      ]
+    }
+  ],
 }
 ```
 
-3. Add a `Koji.pageLoad()`, function to your app's main js file.
-**App.js**
-```js
-import Koji from 'koji-tools';
-...
-Koji.pageLoad();
-...
-```
-4. Use `koji-tools` in your application to get Koji Customization options and other features:
-```js
-import Koji from 'koji-tools';
-// If I had a 'backgroundColor' property in a 'colors' customization file. 
-console.log(Koji.config.colors.backgroundColor);
-// If I had a route TestRoute
-Koji.request(Koji.routes.TestRoute).then((response) => {
-    console.log(response);
-})
-```
 
-### Auto test VCC's
-`vccTest` is a function to auto test koji VCC's by automatically changing all VCC's, or printing un-handled VCC's to the console.
+In order to expose the VCC, nest your configuration under the `@@editor` key. This will generate a UI for the user to interact with the values.
 
-To run `vccTest` Open the browser console and run:
-```js
-vccTest();
+`@@editor.name` and `@@editor.icon` dictate how the file will "appear" to the user. If you have multiple VCC files (settings, images, sounds), then using names and icons that match well with your VCC file scope will make them easier to find for another user.
+
+`@@editor.source` should match the file name.
+
+`@@editor.key` will be the top level key for accessing your configuration values.
+
+`@@editor.fields` are the individual fields that are scoped to this configuration file. The `key` is the key for the value, the `name` is the display name, and the `type` is the input type.
+
+The default values for your fields are mapped at the top level of the file, using a key that matches the `@@editor.key`.
+
+
+#### Sample VCC Usage
+
+In looking at the VCC file above, we could do the following:
+
+```
+import Koji from '@withkoji/vcc';
+
+console.log(Koji.config.settings.name); // Hello World!
 ```
 
-## Usage - Backend
-1. Just like in frontend, install koji tools: `npm install --save koji-tools`
-2. Add a watcher to your development setup
-    In your `package.json` file, add a prestart script to your scripts section.
-```json
-"scripts": {
-    "prestart": "koji-tools watch &",
-    "start": "..."
-}
+
+### ENV Mapping
+
+In order to make some `ENV` variables accessible to the frontend (browser), this package also supports some basic mapping so you can do things like `fetch` information from a backend service.
+
+Services that are defined in your `develop.json` and `deploy.json` will be created and exposed in the project build step.
+
+#### Sample develop.json
+
 ```
-3. Import koji-tools in your routes to get access to Koji.config. Example:
-```js
-import Koji from 'koji-tools';
-
-export default async (req, res) => {
-    console.log('request running...');
-    const content = Koji.config.strings.content;
-    res.status(200).json({ content });
-}
-```    
-*\*NOTE: As of 0.4.3, only `Koji.config` is supported for backend node.js usage. Other koji-tools functionality is not available.*
-
-
-## API
-
-- `Koji.watch()`
-    Server Side function that sets file watchers on all .koji customization files and allows for hot reloading of these properties.
-
-- `Koji.pageLoad()`
-    Sets up `Koji.config` parameters for each client and handles communication between the Koji live preview iframe and your app.
-
-- `Koji.request()`
-    Wrapper for fetch that takes objects from `Koji.routes`.    
-    *\*Note: as of 0.4.2, a `cache` option can be added to a routes koji.json file, default is `no-cache` in order to avoid stale caching.*
-- `Koji.pwaPrompt()`
-    After the `'pwaPromptReady'` event has fired, this function will make a popup installation prompt appear.   
-    *\*Note: this function must be run from some user input. (like onClick)*
-- `Koji.config`
-    An autogenerated list of all of the Koji Customization Controls (CVV's) your application has setup. when `Koji.watch()` is being used this list updates automatically.
-
-- `Koji.routes`
-    A autogenerated list of routes based on koji.json files in your project that are used in `Koji.request()` to request the backend of you app.
-
-- `Koji.on(event, callback)`
-    Register a callback on a koji event. 
-    **events**
-        - change
-```js
-Koji.on('change', (scope, key, value) => { ... });
-``` 
-Where `scope` is the file that has been changed and `key` and `value` are the json item with its new value. 
-```js
-Koji.on('pwaPromptReady', () => { ... });
-```
-On a deployed project that has `koji-tools pwa` in the `"postbuild"` section of the package.json file, this event will fire when the PWA Install Prompt is ready to be called.
-See `Koji.pwaPrompt()`.  
-
-- `Koji.resolveSecret(key)`
-    Resolve the value of a user's secret from the Koji Keystore. Secrets are used for values that are not intended to
-    be read by other users when a project is remixed.
+{
+  "develop": {
+    "frontend": {
+      "path": "frontend",
+      "port": 8080,
+      "events": {
+        "started": "[webpack] Frontend server started",
+        "building": "[webpack] Frontend building",
+        "built": "Compiled successfully.",
+        "build-error": "[webpack] Frontend build error"
+      },
+      "startCommand": "npm start"
+    },
+    "backend": {
+        "path": "backend",
+        "port": 3333,
+        "startCommand": "npm run start-dev",
+        "events": {
+            "started": "[koji] backend started",
+            "log": "[koji-log]"
+        }
+    },
     
-Get Started at [GoKoji.com](https://gokoji.com)
+  }
+}
 
-## Changelog
+```
 
-### 0.5.2 
-- Resolve secrets
+The endpoints will be written to `ENV` variables in your project:
 
-### 0.5.1:
-- Starting to move away from strict dependance on metadata.json, allow for plugin PWA manifest support.
+"frontend" > `KOJI_SERVICE_URL_FRONTEND`
+"backend" > `KOJI_SERVICE_URL_BACKEND`
 
-### 0.5.0:
-- VCC testing tools added
+#### ENV Mapping Usage
 
-### 0.4.3:
-- Support for backend to use `Koji.config`
+You can easily access these service url variables in your application:
 
-### 0.4.2:
-- added caching options to Koji.request that are customizable in a routes koji.json
-- changed default caching stategy to `no-cache` to keep request freshness
+```
+import Koji from '@withkoji/vcc';
 
-### 0.4.1:
-- minor bug fixes
-
-### 0.4.0:
-- Added pwa prompt support
-- the function `Koji.pwaPrompt()`
-- the callback handler `Koji.on('pwaPromptReady', () => { ... })`
-
-### 0.3.0:
-- Added easy to setup pwa support for projects with koji tools
-
-### 0.2.0:
-- Added callback handlers
-- minor usability fixes
-
-### 0.1.0:
-- Initial commit.
-- Barely working but technically working
+const data = await fetch(`${Koji.config.serviceMap.backend}/getScores`);
+```
