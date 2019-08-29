@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/madewithkoji/koji-tools.git"
+    "url": "git+https://github.com/madewithkoji/koji-vcc.git"
   },
   "keywords": [
     "koji",
@@ -25,7 +25,7 @@
   "author": "jonesnxt",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/madewithkoji/koji-tools/issues"
+    "url": "https://github.com/madewithkoji/koji-vcc/issues"
   },
   "homepage": "https://withkoji.com",
   "dependencies": {
