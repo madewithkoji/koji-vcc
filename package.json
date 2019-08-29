@@ -1,11 +1,11 @@
 {
   "name": "koji-tools",
-  "version": "0.5.45",
-  "description": "A library that simplifies adding koji-specific features to any javascript project",
+  "version": "1.0.0",
+  "description": "A library that exposes VCC and ENV values for easy consumption in a Koji app",
   "main": "dist/index.js",
   "scripts": {
     "build": "babel src --presets @babel/preset-env --out-dir dist",
-    "prepublish": "npm run build",
+    "prepublishOnly": "npm run build",
     "postinstall": "node ./bin/cmd.js postinstall",
     "start-dev": "babel src --watch --out-dir dist",
     "test": "echo \"Error: no test specified\" && exit 1"
