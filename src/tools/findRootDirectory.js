@@ -3,7 +3,7 @@ import path from 'path';
 
 const findRootDirectory = () => {
   // Start in the dir where this module is installed
-  let dirPath = '/home/sean/Koji/parcel'; // process.cwd()
+  let dirPath = process.cwd();
 
   // Look for the .koji dir
   try {
