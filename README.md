@@ -1,4 +1,4 @@
-## koji-tools
+## @withkoji/vcc
 
 This package will 
 
@@ -9,14 +9,14 @@ This package will
 
 ### Installation
 
-`npm install koji-tools`
+`npm install @withkoji/vcc`
 
 
 ### Usage (Client)
 
-`import { config } from 'koji-tools'`
+`import Koji from '@withkoji/vcc'`
 
-Import `config` to get access to the values that are set in your VCC and also to make calls to the backend.
+Import Koji to get access to the values that are set in your VCC and also to make calls to the backend. VCC values are available in `Koji.config`.
 
 
 ### What is a VCC?
@@ -32,6 +32,9 @@ VCC files are JSON and live in the `.koji/customization` folder.
 // .koji/customization/setttings.json
 
 {
+  "settings": {
+    "name": "Hello World!"
+  },
   "@@editor": [
     {
       "key": "settings",
@@ -47,9 +50,6 @@ VCC files are JSON and live in the `.koji/customization` folder.
       ]
     }
   ],
-  "settings": {
-    "name": "Hello World!"
-  },
 }
 ```
 
@@ -72,9 +72,9 @@ The default values for your fields are mapped at the top level of the file, usin
 In looking at the VCC file above, we could do the following:
 
 ```
-import { config } from 'koji-tools';
+import Koji from '@withkoji/vcc';
 
-console.log(config.settings.name); // Hello World!
+console.log(Koji.config.settings.name); // Hello World!
 ```
 
 
@@ -125,7 +125,7 @@ The endpoints will be written to `ENV` variables in your project:
 You can easily access these service url variables in your application:
 
 ```
-import { config } from 'koji-tools';
+import Koji from '@withkoji/vcc';
 
-const data = await fetch(`${config.serviceMap.backend}/getScores`);
+const data = await fetch(`${Koji.config.serviceMap.backend}/getScores`);
 ```

@@ -9,13 +9,13 @@ const findRootDirectory = () => {
   try {
     while (!fs.readdirSync(dirPath).includes('.koji')) {
       const parentPath = path.dirname(dirPath);
-      if (dirPath === parentPath) throw Error('Couldn\'t find ".koji" folder.');
+      if (dirPath === parentPath) throw Error('[@withkoji/vcc] Couldn\'t find ".koji" folder.');
       dirPath = parentPath;
     }
   } catch (err) {
     // Fallback to using the default path?
     dirPath = process.cwd();
-    console.log(`Couldn't find ".koji" folder. Default path was used: "${dirPath}"`);
+    console.log(`[@withkoji/vcc] Couldn't find ".koji" folder. Default path was used: "${dirPath}"`);
   }
 
   return dirPath;

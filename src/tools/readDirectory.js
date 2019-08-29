@@ -38,8 +38,8 @@ const readDirectoryRelative = (directory) => {
     return list;
   } catch (err) {
     const error = new Error(`
-      ${err.message}\n${_YLW}${RED}Have you installed "git" and added it to the "PATH"? 
-      If no see: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git${RST}\n
+      [@withkoji/vcc] ${err.message}\n${_YLW}${RED}Have you installed "git" and added it to the "PATH"?
+      If not, see: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git${RST}\n
     `);
     error.stack = err.stack;
     throw error;
