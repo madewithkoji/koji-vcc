@@ -5,11 +5,13 @@ This package will
 - ingest the VCC json files
 - monitor those files and reload the project when they change
 - map some `ENV` variables to make endpoints easily accessible
+
 &nbsp;
 
 ### Installation
 
 `npm install koji-vcc`
+
 &nbsp;
 
 ### Usage (Client)
@@ -17,6 +19,7 @@ This package will
 `import { config } from 'koji-vcc'`
 
 Import `config` to get access to the values that are set in your VCC and also to make calls to the backend.
+
 &nbsp;
 
 ### What is a VCC?
@@ -24,7 +27,9 @@ Import `config` to get access to the values that are set in your VCC and also to
 VCCs are Visual Customization Controls. They allow you to use values in your application that are easily editable by other users who want to remix your application.
 
 VCC files are JSON and live in the `.koji/customization` folder.
+
 &nbsp;
+
 #### Sample VCC File
 
 ```
@@ -51,7 +56,9 @@ VCC files are JSON and live in the `.koji/customization` folder.
   },
 }
 ```
+
 &nbsp;
+
 In order to expose the VCC, nest your configuration under the `@@editor` key. This will generate a UI for the user to interact with the values.
 
 `@@editor.name` and `@@editor.icon` dictate how the file will "appear" to the user. If you have multiple VCC files (settings, images, sounds), then using names and icons that match well with your VCC file scope will make them easier to find for another user.
@@ -63,6 +70,7 @@ In order to expose the VCC, nest your configuration under the `@@editor` key. Th
 `@@editor.fields` are the individual fields that are scoped to this configuration file. The `key` is the key for the value, the `name` is the display name, and the `type` is the input type.
 
 The default values for your fields are mapped at the top level of the file, using a key that matches the `@@editor.key`.
+
 &nbsp;
 
 #### Sample VCC Usage
@@ -74,6 +82,7 @@ import { config } from 'koji-vcc';
 
 console.log(config.settings.name); // Hello World!
 ```
+
 &nbsp;
 
 ### ENV Mapping
