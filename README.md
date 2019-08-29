@@ -1,4 +1,4 @@
-## koji-vcc
+## koji-tools
 
 This package will 
 
@@ -9,12 +9,12 @@ This package will
 
 ### Installation
 
-`npm install koji-vcc`
+`npm install koji-tools`
 
 
 ### Usage (Client)
 
-`import { config } from 'koji-vcc'`
+`import { config } from 'koji-tools'`
 
 Import `config` to get access to the values that are set in your VCC and also to make calls to the backend.
 
@@ -72,7 +72,7 @@ The default values for your fields are mapped at the top level of the file, usin
 In looking at the VCC file above, we could do the following:
 
 ```
-import { config } from 'koji-vcc';
+import { config } from 'koji-tools';
 
 console.log(config.settings.name); // Hello World!
 ```
@@ -125,7 +125,7 @@ The endpoints will be written to `ENV` variables in your project:
 You can easily access these service url variables in your application:
 
 ```
-import { config } from 'koji-vcc';
+import { config } from 'koji-tools';
 
 const data = await fetch(`${config.serviceMap.backend}/getScores`);
 ```
