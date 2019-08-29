@@ -1,14 +1,13 @@
-var buildConfig = require('./tools/buildConfig.js');
+const fs = require('fs')
+const path = require('path')
+const buildConfig = require('./tools/buildConfig.js')
 
 module.exports = () => {
-    var fs = require('fs');
-
-    // escape our cached configs so koji editor can't store them
-    var config = JSON.stringify({ config: JSON.parse(buildConfig()) }, null, 2);
-    try {
-        fs.writeFileSync(`${__dirname}/config.json`, config)
-    } catch(err) {
-        console.log(err);
-    }
-    console.log('new config');
+	// escape our cached configs so koji editor can't store them
+	const config = JSON.stringify({config: JSON.parse(buildConfig())}, null, 2)
+	
+	fs.writeFile(path.join(__dirname, 'config.json'), config, err => {
+		if (err) console.error(err)
+		console.log('new config')
+	})
 }
