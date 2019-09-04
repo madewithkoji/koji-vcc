@@ -15,16 +15,19 @@ const writeConfig = () => {
 
         Object.keys(file).forEach((key) => {
           // If the key already exists in the project config, use it
-          if (projectConfig[key]) {
-            if (Array.isArray(projectConfig[key]) && Array.isArray(file[key])) {
-              projectConfig[key] = projectConfig[key].concat(file[key]);
-            } else {
-              projectConfig[key] = Object.assign(projectConfig[key], file[key]);
-            }
-          } else {
-            // Otherwise, set it
-            projectConfig[key] = file[key];
-          }
+         let configValue = projectConfig[key];
+         const fileValue = file[key];
+          if (configValue) {
+            
+            Array.isArray(configValue) && Array.isArray(fileValue))
+            ? (configValue = configValue.concat(fileValue))
+            : (configValue = Object.assign(configValue, fileValue));
+          } 
+          // Otherwise, set it
+          configValue = fileValue;
+          
+          //Finally, set the projectConfig key's value
+          projectConfig = {...projectConfig, projectConfig[key]: configValue}
         });
       } catch (err) {
         //
