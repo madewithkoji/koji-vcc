@@ -4,7 +4,7 @@ import path from 'path';
 
 const readDirectoryRelative = (directory) => {
   try {
-    let list = execSync('git ls-files', { cwd: directory }).toString()
+    let list = execSync('git ls-files && git ls-files --exclude-standard --others', { cwd: directory }).toString()
       .replace(/\n$/, '')
       .split('\n');
 
