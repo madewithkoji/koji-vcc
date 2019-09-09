@@ -9,7 +9,6 @@ const writeConfig = () => {
   const projectConfig = readDirectory(root)
     .reduce((config, path) => {
       try {
-        if (!(path.endsWith('koji.json') || path.includes('.koji')) && !path.includes('.koji-resources')) return config;
         const file = JSON.parse(fs.readFileSync(path, 'utf8'));
         Object.keys(file).forEach((key) => {
           // If the key already exists in the project config, use it

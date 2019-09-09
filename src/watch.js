@@ -10,8 +10,7 @@ const watch = () => {
   writeConfig();
 
   // Watch the .koji directory from a node_modules directory
-  const files = readDirectory(findRootDirectory())
-    .filter((path) => (path.endsWith('koji.json') || path.includes('.koji')) && !path.includes('.koji-resources'));
+  const files = readDirectory(findRootDirectory());
 
   // Note: Polling is used by default in the container via
   // the CHOKIDAR_USEPOLLING=1 env that is set in the container
