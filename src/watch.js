@@ -1,9 +1,5 @@
 import chokidar from 'chokidar';
-
-import readDirectory from './tools/readDirectory';
-import findRootDirectory from './tools/findRootDirectory';
-
-import writeConfig from './tools/writeConfig';
+import { readDirectory, findRootDirectory, writeConfig } from './tools';
 
 const watch = () => {
   // Generate a base config
