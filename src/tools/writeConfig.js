@@ -19,9 +19,10 @@ const writeConfig = () => {
             configValue = (Array.isArray(configValue) && Array.isArray(fileValue))
               ? configValue.concat(fileValue)
               : Object.assign(configValue, fileValue);
+          } else {
+            // Otherwise, set it
+            configValue = fileValue;
           }
-          // Otherwise, set it
-          configValue = fileValue;
 
           // Finally, set the config key's value
           config[key] = configValue;
