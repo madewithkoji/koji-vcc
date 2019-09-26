@@ -2,8 +2,9 @@
 import fs from 'fs';
 import readDirectory from './readDirectory';
 import findRootDirectory from './findRootDirectory';
+import createJsonDefinitions from './configDefinitions';
 
-const writeConfig = () => {
+const writeConfig = (defFile = false) => {
   const root = findRootDirectory();
   // Add config items from koji json files
   const projectConfig = readDirectory(root)
@@ -51,6 +52,17 @@ const writeConfig = () => {
     const error = new Error(`[@withkoji/vcc] ${err.message}`);
     error.stack = err.stack;
     throw err;
+  }
+
+  // Create a TypeScript definitions file from the combined config.json, if desired.
+  if (defFile) {
+    try {
+      fs.writeFileSync(`${__dirname}/../res/config.json.d.ts`, createJsonDefinitions(projectConfig));
+    } catch (err) {
+      const error = new Error(`[@withkoji/vcc] ${err.message}`);
+      error.stack = err.stack;
+      throw err;
+    }
   }
 };
 
