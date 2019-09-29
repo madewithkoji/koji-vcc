@@ -41,6 +41,11 @@ const writeConfig = () => {
     return serviceMap;
   }, {});
 
+  // Expose some metadata about the project
+  projectConfig.metadata = {
+    projectId: process.env.KOJI_PROJECT_ID,
+  };
+
   // Write the generated config to a json file
   try {
     fs.writeFileSync(
