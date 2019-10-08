@@ -43,6 +43,7 @@ const writeConfig = () => {
 
   // Expose some metadata about the project
   projectConfig.metadata = {
+    ...(projectConfig.metadata || {}),
     projectId: process.env.KOJI_PROJECT_ID,
   };
 
