@@ -11,7 +11,8 @@ const watch = () => {
   // Note: Polling is used by default in the container via
   // the CHOKIDAR_USEPOLLING=1 env that is set in the container
   const rootDir = findRootDirectory();
-  const watcher = chokidar.watch(rootDir);
+  console.log('root', rootDir);
+  const watcher = chokidar.watch(`${rootDir}/.koji`);
 
   watcher
     .on('error', (error) => console.error(`[@withkoji/vcc] Watcher error: ${error}`))
