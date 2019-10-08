@@ -10,17 +10,17 @@ const watch = () => {
 
   // Note: Polling is used by default in the container via
   // the CHOKIDAR_USEPOLLING=1 env that is set in the container
-  const rootDir = findRootDirectory();
-  console.log('root', rootDir);
-  const watcher = chokidar.watch(`${rootDir}/.koji`);
+  const kojiDir = `${findRootDirectory()}/.koji`;
+  const watcher = chokidar.watch(kojiDir);
 
   watcher
     .on('error', (error) => console.error(`[@withkoji/vcc] Watcher error: ${error}`))
     .on('all', () => {
+      console.log('[@withkoji/vcc] Rebuilding config...');
       writeConfig();
     })
     .on('ready', () => {
-      console.log(`[@withkoji/vcc] Watching ${rootDir}...`);
+      console.log(`[@withkoji/vcc] Watching ${kojiDir}...`);
     });
 };
 
