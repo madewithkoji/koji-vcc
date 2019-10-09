@@ -1,0 +1,15 @@
+{
+  "develop": {
+    "frontend": {
+      "path": "frontend",
+      "port": 3000,
+      "events": {
+        "started": "[webpack] Frontend server started",
+        "building": "[webpack] Frontend building",
+        "built": "Compiled successfully.",
+        "build-error": "[webpack] Frontend build error"
+      },
+      "startCommand": "npm start"
+    }
+  }
+}

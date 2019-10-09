@@ -1,0 +1,21 @@
+{
+  "images": {
+    "homeBackgroundImage": "https://i.imgur.com/C40el66.png"
+  },
+  "@@editor": [
+    {
+      "key": "images",
+      "name": "Images",
+      "icon": "🖼️",
+      "source": "images.json",
+      "fields": [
+        {
+          "key": "icon",
+          "name": "Icon",
+          "description": "Icon that spins on the page",
+          "type": "image"
+        }
+      ]
+    }
+  ]
+}

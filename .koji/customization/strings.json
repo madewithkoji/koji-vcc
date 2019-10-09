@@ -1,0 +1,27 @@
+{
+  "strings": {
+    "content": "Welcome Baby",
+    "linkText": "Learn React"
+  },
+  "@@editor": [
+    {
+      "key": "strings",
+      "name": "Strings",
+      "icon": "📚",
+      "source": "strings.json",
+      "fields": [
+        {
+          "key": "content",
+          "name": "Page Content",
+          "description": "The text that is displayed on the page",
+          "type": "text"
+        },
+        {
+          "key": "linkText",
+          "name": "Link Text",
+          "type": "text"
+        }
+      ]
+    }
+  ]
+}

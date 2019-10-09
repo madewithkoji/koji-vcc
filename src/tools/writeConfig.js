@@ -14,6 +14,7 @@ const writeConfig = () => {
           // If the key already exists in the project config, use it
           let configValue = config[key];
           const fileValue = file[key];
+          console.log(file, key, configValue, fileValue);
           if (configValue) {
             configValue = (Array.isArray(configValue) && Array.isArray(fileValue))
               ? configValue.concat(fileValue)
