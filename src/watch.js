@@ -19,6 +19,11 @@ const watch = () => {
   watcher
     .on('error', (error) => console.error(`[@withkoji/vcc] Watcher error: ${error}`))
     .on('all', () => {
+      if (watcherDebounce) {
+        console.log('clearing');
+        clearTimeout(watcherDebounce);
+        watcherDebounce = null;
+      }
       watcherDebounce = setTimeout(() => {
         console.log('[@withkoji/vcc] Rebuilding config...');
         writeConfig();
