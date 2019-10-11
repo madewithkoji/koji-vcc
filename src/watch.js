@@ -19,8 +19,10 @@ const watch = () => {
   watcher
     .on('error', (error) => console.error(`[@withkoji/vcc] Watcher error: ${error}`))
     .on('all', () => {
-      console.log('[@withkoji/vcc] Rebuilding config...');
-      watcherDebounce = setTimeout(() => writeConfig(), 250);
+      watcherDebounce = setTimeout(() => {
+        console.log('[@withkoji/vcc] Rebuilding config...');
+        writeConfig();
+      }, 250);
     })
     .on('ready', () => {
       console.log(`[@withkoji/vcc] Watching ${kojiDir}...`);
