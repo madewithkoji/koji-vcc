@@ -20,7 +20,6 @@ const watch = () => {
     .on('error', (error) => console.error(`[@withkoji/vcc] Watcher error: ${error}`))
     .on('all', () => {
       if (watcherDebounce) {
-        console.log('clearing');
         clearTimeout(watcherDebounce);
         watcherDebounce = null;
       }
