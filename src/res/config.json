@@ -1,1 +1,91 @@
-{}
+{
+  "colors": {
+    "linkColor": "#DC143C",
+    "backgroundColor": "#111111"
+  },
+  "@@editor": [
+    {
+      "key": "colors",
+      "name": "Colors",
+      "icon": "💅",
+      "source": "colors.json",
+      "fields": [
+        {
+          "key": "backgroundColor",
+          "name": "Background color",
+          "type": "color"
+        },
+        {
+          "key": "linkColor",
+          "name": "Link Color",
+          "type": "color"
+        }
+      ]
+    },
+    {
+      "key": "images",
+      "name": "Images",
+      "icon": "🖼️",
+      "source": "images.json",
+      "fields": [
+        {
+          "key": "icon",
+          "name": "Icon",
+          "description": "Icon that spins on the page",
+          "type": "image"
+        }
+      ]
+    },
+    {
+      "key": "strings",
+      "name": "Strings",
+      "icon": "📚",
+      "source": "strings.json",
+      "fields": [
+        {
+          "key": "content",
+          "name": "Page Content",
+          "description": "The text that is displayed on the page",
+          "type": "text"
+        },
+        {
+          "key": "linkText",
+          "name": "Link Text",
+          "type": "text"
+        }
+      ]
+    }
+  ],
+  "images": {
+    "homeBackgroundImage": "https://i.imgur.com/C40el66.png"
+  },
+  "strings": {
+    "content": "Welcome",
+    "linkText": "Learn React"
+  },
+  "deploy": {
+    "frontend": {
+      "output": "frontend/build",
+      "type": "static",
+      "commands": [
+        "cd frontend",
+        "npm install",
+        "export NODE_ENV=production && npm run build"
+      ]
+    }
+  },
+  "develop": {
+    "frontend": {
+      "path": "frontend",
+      "port": 3000,
+      "events": {
+        "started": "[webpack] Frontend server started",
+        "building": "[webpack] Frontend building",
+        "built": "Compiled successfully.",
+        "build-error": "[webpack] Frontend build error"
+      },
+      "startCommand": "npm start"
+    }
+  },
+  "serviceMap": {}
+}
