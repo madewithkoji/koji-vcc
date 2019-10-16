@@ -18,9 +18,10 @@ const writeConfig = () => {
             configValue = (Array.isArray(configValue) && Array.isArray(fileValue))
               ? configValue.concat(fileValue)
               : Object.assign(configValue, fileValue);
+          } else {
+            // Otherwise, set it
+            configValue = fileValue;
           }
-          // Otherwise, set it
-          configValue = fileValue;
 
           // Finally, set the config key's value
           config[key] = configValue;
@@ -38,6 +39,12 @@ const writeConfig = () => {
     }
     return serviceMap;
   }, {});
+
+  // Expose some metadata about the project
+  projectConfig.metadata = {
+    ...(projectConfig.metadata || {}),
+    projectId: process.env.KOJI_PROJECT_ID,
+  };
 
   // Write the generated config to a json file
   try {
