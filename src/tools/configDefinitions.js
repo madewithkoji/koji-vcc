@@ -1,93 +1,64 @@
 /**
  * configDefinitions -
- * Automatically generates a definitions file for Koji.config.
- * This helps TypeScript developers have types and context for
- * VCC config files.
+ * Automatically generates a definitions file for the Koji.config object.
+ * This helps TypeScript developers have types and context for VCC config files.
  */
-import { parse } from "messageformat-parser";
 
-function jsonWalker(json, key, level) {
-  function processTokens(tokens) {
-    let types = [];
-    tokens
-      .filter(token => typeof token === "object")
-      .forEach(token => {
-        switch (token.type) {
-          case "argument":
-          case "select":
-            types.push(`${token.arg}: string`);
-            break;
-          case "selectordinal":
-          case "plural":
-            types.push(`${token.arg}: number`);
-            break;
-        }
-        if (token.cases) {
-          token.cases.forEach(oneCase => {
-            types = types.concat(processTokens(oneCase.tokens));
-          });
-        }
-      });
-    return types;
-  }
+ function jsonWalker(json, key, level) {
   const that = this;
+
+  // Wrap all key/item pairs within an object into a block
   const types = Object.entries(json)
-    .filter(pair => !commentPattern.test(pair[0]))
     .map(pair => {
       const key = pair[0];
       const value = pair[1];
-      const env = {
-        key,
-        level,
-        value
-      };
-      if (typeof json[key] === "string") {
-        const valueType = processTokens(parse(json[key])).join(",");
-        if (valueType === "") {
-          return that.lineDecorator.call(env, `() => string`);
-        } else {
-          return that.lineDecorator.call(
-            env,
-            `(values: { ${valueType} }) => string`
-          );
-        }
-      } else if (
-        typeof json[key] === "object" &&
-        !(json[key] instanceof Array)
-      ) {
-        return that.lineDecorator.call(
-          env,
-          that.innerWalker(json[key], key, level + 1)
-        );
+      const env = { key, level, value };
+
+      if (typeof json[key] === "object" || json[key] instanceof Array) {
+        return that.lineDecorator.call(env, that.innerWalker(json[key], key, level + 1));
+      } else if (typeof json[key] === "string" || typeof json[key] === "boolean" || typeof json[key] === "number") {
+          return that.lineDecorator.call(env, `() => ${typeof json[key]}`);
       } else {
-        throw new Error(
-          `Malformed string module ${this.resourcePath} for ID ${key}`
-        );
+        throw new Error(`[@withkoji/vcc] TypeScript config parser - Malformed object data for ID ${key} & value ${value}`);
       }
     });
-  return that.blockDecorator.call({ key, level }, types);
+
+    // Output all pairs into one, wrapped with the appropriate key and bracket/brace
+    let jsonType = "object";
+    if (Array.isArray(json)) {
+      jsonType = "array";
+    }
+    return that.blockDecorator.call({ key, level }, types, jsonType);
 }
 
 const createJsonDefinitions = (json) => {
   function innerWalker(json, key, level) {
     return jsonWalker.bind({
       lineDecorator: function(type) {
+        const valueType = typeof this.value;
         const comment =
-          typeof this.value === "string"
-            ? `${"  ".repeat(this.level)}/** Text: ${this.value} */\n`
+          valueType === "string" || valueType === "boolean" || valueType === "number"
+            ? `${"  ".repeat(this.level)}/** Value: ${this.value} */\n`
             : "";
-        return `${comment}${"  ".repeat(this.level)}${this.key} : ${type}`;
+        return `${comment}${"  ".repeat(this.level)}${this.key}: ${type}`;
       },
       innerWalker,
-      blockDecorator: function(types) {
-        return `{\n${types.join(",\n")}\n${"  ".repeat(this.level - 1)}}`;
+      blockDecorator: function(types, jsonType) {
+        if (jsonType === "object") {
+          return `{\n${types.join(",\n")}\n${"  ".repeat(this.level - 1)}}`;
+        } else {
+          return `[\n${types.join(",\n")}\n${"  ".repeat(this.level - 1)}]`;
+        }
       }
     })(json, key, level);
   }
   return jsonWalker.bind({
     lineDecorator: function(type) {
+      const valueType = typeof this.value;
       const comment =
-        typeof this.value === "string" ? `/** Text: ${this.value} */\n` : "";
+        valueType === "string" || valueType === "boolean" || valueType === "number"
+          ? `/** Value: ${this.value} */\n`
+          : "";
       return `${comment}export const ${this.key} = ${type};`;
     },
     innerWalker,

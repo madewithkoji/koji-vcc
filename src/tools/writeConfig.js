@@ -45,7 +45,7 @@ const writeConfig = (defFile = false) => {
   // Expose some metadata about the project
   projectConfig.metadata = {
     ...(projectConfig.metadata || {}),
-    projectId: process.env.KOJI_PROJECT_ID,
+    projectId: process.env.KOJI_PROJECT_ID || '00000000-0000-0000-0000-000000000000',
   };
 
   // Write the generated config to a json file
@@ -63,7 +63,7 @@ const writeConfig = (defFile = false) => {
   // Create a TypeScript definitions file from the combined config.json, if desired.
   if (defFile) {
     try {
-      fs.writeFileSync(`${__dirname}/../res/config.json.d.ts`, createJsonDefinitions(projectConfig));
+      fs.writeFileSync(`${root}/config.json.d.ts`, createJsonDefinitions(projectConfig));
     } catch (err) {
       const error = new Error(`[@withkoji/vcc] ${err.message}`);
       error.stack = err.stack;

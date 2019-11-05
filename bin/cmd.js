@@ -15,3 +15,13 @@ if (process.argv[2] === 'postinstall') {
     //
   }
 }
+
+if (process.argv[2] === 'test') {
+  try {
+    const writeConfig = require('../dist/tools/writeConfig.js').default;
+    writeConfig(true);
+  } catch (err) {
+    // ?
+    console.log(err);
+  }
+}
