@@ -1,21 +1,16 @@
 {
+  "routes": [
+    {
+      "name": "SampleRoute",
+      "path": "backend/routes/SampleRoute",
+      "route": "/test",
+      "method": "GET",
+      "isProtected": false
+    }
+  ],
   "colors": {
     "backgroundColor": "#2B0D4D",
-    "textColor": "#ffffff",
-    "buttonTextColor": "#2B0D4D",
-    "buttonColor": "#d8d06bff",
-    "scoreColor": "#ccbddcff",
-    "highscoreColor": "#d8d06bff",
-    "titleColor": "#d8d06bff",
-    "instructionsColor": "#d8d06bff",
-    "perfectLandColor": "#FFC78A",
-    "loseLifeColor": "#E8AFD0",
-    "floorCountColor": "#FFC78A",
-    "comboColor": "#34B412",
-    "criticalColor": "#fff687",
-    "trailColor": "#FFD8D8",
-    "buttonHoverColor": "#aca659",
-    "buttonClickColor": "#d8d06bff"
+    "textColor": "#ffffff"
   },
   "@@editor": [
     {
@@ -453,15 +448,6 @@
       }
     }
   },
-  "routes": [
-    {
-      "name": "SampleRoute",
-      "path": "backend/routes/SampleRoute",
-      "route": "/test",
-      "method": "GET",
-      "isProtected": false
-    }
-  ],
   "pages": [
     {
       "name": "App",

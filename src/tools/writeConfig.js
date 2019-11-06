@@ -2,7 +2,7 @@
 import fs from 'fs';
 import readDirectory from './readDirectory';
 import findRootDirectory from './findRootDirectory';
-import createJsonDefinitions from './configDefinitions';
+import { compile } from 'json-schema-to-typescript';
 
 const writeConfig = (defFile = false) => {
   const root = findRootDirectory();
@@ -62,8 +62,17 @@ const writeConfig = (defFile = false) => {
 
   // Create a TypeScript definitions file from the combined config.json, if desired.
   if (defFile) {
+    const bannerComment = `/* tslint:disable */
+    /**
+    * Koji.config definitions file -
+    * This file was automatically generated. Any modifications by hand will
+    * be overwritten by Koji's VCC watcher when started or while running.
+    * Newly created and changed Koji.config objects will be added by the watcher
+    * to this file as VCC objects are modified.
+    */`;
     try {
-      fs.writeFileSync(`${root}/config.json.d.ts`, createJsonDefinitions(projectConfig));
+      compile(projectConfig, 'config', { bannerComment: bannerComment })
+        .then(definition => fs.writeFileSync(`${root}/config.json.d.ts`, definition));
     } catch (err) {
       const error = new Error(`[@withkoji/vcc] ${err.message}`);
       error.stack = err.stack;
