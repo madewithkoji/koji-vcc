@@ -1,0 +1,466 @@
+{
+  "routes": [
+    {
+      "name": "SampleRoute",
+      "path": "backend/routes/SampleRoute",
+      "route": "/test",
+      "method": "GET",
+      "isProtected": false
+    }
+  ],
+  "colors": {
+    "backgroundColor": "#2B0D4D",
+    "textColor": "#ffffff"
+  },
+  "@@editor": [
+    {
+      "key": "colors",
+      "name": "Colors",
+      "icon": "💅",
+      "source": "colors.json",
+      "fields": [
+        {
+          "key": "backgroundColor",
+          "name": "Background color",
+          "type": "color"
+        },
+        {
+          "key": "titleColor",
+          "name": "Game Title and Leaderboard Text Color",
+          "type": "color"
+        },
+        {
+          "key": "instructionsColor",
+          "name": "Game Instructions Color",
+          "type": "color"
+        },
+        {
+          "key": "scoreColor",
+          "name": "Score color",
+          "type": "color"
+        },
+        {
+          "key": "comboColor",
+          "name": "Combo color",
+          "type": "color"
+        },
+        {
+          "key": "buttonTextColor",
+          "name": "Button Text Color",
+          "type": "color"
+        },
+        {
+          "key": "buttonColor",
+          "name": "Button Color",
+          "type": "color"
+        },
+        {
+          "key": "buttonHoverColor",
+          "name": "Button Hover Color",
+          "type": "color"
+        },
+        {
+          "key": "buttonClickColor",
+          "name": "Button Click Color",
+          "type": "color"
+        },
+        {
+          "key": "criticalColor",
+          "name": "Critical Color",
+          "type": "color"
+        },
+        {
+          "key": "trailColor",
+          "name": "Slice Trail Color",
+          "type": "color"
+        }
+      ]
+    },
+    {
+      "key": "fruits",
+      "name": "Fruit",
+      "icon": "🍓",
+      "source": "fruits.json",
+      "fields": [
+        {
+          "key": "fruit",
+          "name": "Fruit",
+          "description": "Fruit included in the game",
+          "type": "object<Fruit>[]",
+          "arrayOptions": {
+            "addItemLabel": "Add Fruit",
+            "min": 1
+          },
+          "typeOptions": {
+            "Fruit": {
+              "image": {
+                "name": "Fruit Image",
+                "description": "Whole fruit. Ideal canvas size 256x256",
+                "type": "image"
+              },
+              "imageSliced": {
+                "name": "Sliced image",
+                "description": "Sliced version of this fruit. Ideal canvas size 256x256",
+                "type": "image"
+              },
+              "imageSplat": {
+                "name": "Splat image",
+                "description": "Splat image for this fruit. Ideal canvas size 256x256",
+                "type": "image"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "images",
+      "name": "Images",
+      "icon": "💪",
+      "source": "images.json",
+      "fields": [
+        {
+          "key": "lifeIcon",
+          "name": "Life Icon",
+          "description": "An icon representing one player life. Ideal size: 96x96",
+          "type": "image"
+        },
+        {
+          "key": "soundImage",
+          "name": "Sound Icon",
+          "description": "Ideal size: 32x32",
+          "type": "image"
+        },
+        {
+          "key": "muteImage",
+          "name": "Mute Icon",
+          "description": "Ideal size: 32x32",
+          "type": "image"
+        },
+        {
+          "key": "bomb",
+          "name": "Bomb",
+          "description": "Ideal canvas size: 256x256",
+          "type": "image"
+        },
+        {
+          "key": "explosion",
+          "name": "Explosion",
+          "description": "Ideal size: 512x512",
+          "type": "image"
+        }
+      ]
+    },
+    {
+      "key": "sounds",
+      "name": "Sounds",
+      "icon": "🔊",
+      "source": "sounds.json",
+      "fields": [
+        {
+          "key": "music",
+          "name": "Background Music",
+          "description": "Get the atmosphere going!",
+          "type": "sound"
+        },
+        {
+          "key": "sliceSound",
+          "name": "Slice Sound",
+          "description": "Played when you slice fruit",
+          "type": "sound"
+        },
+        {
+          "key": "sliceSound2",
+          "name": "Slice Sound 2",
+          "description": "Played when you slice fruit",
+          "type": "sound"
+        },
+        {
+          "key": "explosionSound",
+          "name": "Explosion Sound",
+          "description": "Played when you slice a bomb",
+          "type": "sound"
+        },
+        {
+          "key": "criticalSound",
+          "name": "Critical Sound",
+          "description": "Played when you score a critical",
+          "type": "sound"
+        },
+        {
+          "key": "swingSound",
+          "name": "Swing Sound",
+          "description": "Played when you swing your blade",
+          "type": "sound"
+        },
+        {
+          "key": "comboSound",
+          "name": "Combo Sound",
+          "description": "Played when you score a combo",
+          "type": "sound"
+        },
+        {
+          "key": "loseGameSound",
+          "name": "Lose Game Sound",
+          "description": "Played when you lose a game",
+          "type": "sound"
+        }
+      ]
+    },
+    {
+      "key": "strings",
+      "name": "Game Settings",
+      "icon": "⚙",
+      "source": "strings.json",
+      "fields": [
+        {
+          "key": "title",
+          "name": "Game Title",
+          "description": "The title that is displayed in the start menu",
+          "type": "text"
+        },
+        {
+          "key": "instructions1",
+          "name": "Game Instructions 1",
+          "type": "text"
+        },
+        {
+          "key": "instructions2",
+          "name": "Game Instructions 2",
+          "type": "text"
+        },
+        {
+          "key": "instructions3",
+          "name": "Game Instructions 3",
+          "type": "text"
+        },
+        {
+          "key": "gameOverText",
+          "name": "Game Over Text",
+          "type": "text"
+        },
+        {
+          "key": "fontFamily",
+          "name": "Font Family",
+          "description": "Google fonts link to font to use in the game",
+          "type": "text"
+        },
+        {
+          "key": "playButtonText",
+          "name": "Play Button Text",
+          "description": "Label on the Play Button",
+          "type": "text"
+        },
+        {
+          "key": "leaderboardButtonText",
+          "name": "Leaderboard Button Text",
+          "description": "Label on the Leaderboard Button",
+          "type": "text"
+        },
+        {
+          "key": "scoreText",
+          "name": "Score Text",
+          "description": "Default: 'Score:'",
+          "type": "text"
+        },
+        {
+          "key": "criticalText",
+          "name": "Critical Text",
+          "description": "CRITICAL",
+          "type": "text"
+        },
+        {
+          "key": "lives",
+          "name": "Starting Lives",
+          "description": "How many lives you have at the beginning.",
+          "type": "text"
+        },
+        {
+          "key": "criticalChance",
+          "name": "Critical Chance",
+          "description": "Chance to get a critical. Must be an integer.",
+          "type": "text"
+        },
+        {
+          "key": "criticalModifier",
+          "name": "Critical Modifier",
+          "description": "When you get a critical, you will get scoreGain * criticalModifier score.  Must be an integer.",
+          "type": "text"
+        },
+        {
+          "key": "scoreGain",
+          "name": "Score Gain",
+          "description": "How many points you get for each fruit sliced.  Must be an integer.",
+          "type": "text"
+        },
+        {
+          "key": "comboDuration",
+          "name": "Combo Duration",
+          "description": "In MILISECONDS. How long do you have after each slice until the combo timer resets. Must be an integer.",
+          "type": "text"
+        },
+        {
+          "key": "fruitSpawnMin",
+          "name": "Minimum Fruit Spawned",
+          "description": "How many fruits can spawn at minimum each time.  Must be an integer.",
+          "type": "text"
+        },
+        {
+          "key": "fruitSpawnMax",
+          "name": "Maximum Fruit Spawned",
+          "description": "How many fruits can spawn at maximum each time.  Must be an integer.",
+          "type": "text"
+        },
+        {
+          "key": "maxSplats",
+          "name": "Maximum Splats",
+          "description": "How many splats can there be max. Bigger number may produce performace issues.  Must be an integer.",
+          "type": "text"
+        },
+        {
+          "key": "bombChance",
+          "name": "Bomb Chance",
+          "description": "Chance to spawn a bomb instead of fruit each time.  Must be an integer.",
+          "type": "text"
+        },
+        {
+          "key": "emailInputEnabled",
+          "name": "Enable E-Mail Input",
+          "description": "Enable/Disable E-Mail input while submitting score.",
+          "type": "boolean"
+        }
+      ]
+    }
+  ],
+  "fruits": {
+    "fruit": [
+      {
+        "image": "https://images.koji-cdn.com/96d9efe2-247a-4e52-8c76-d88d7852e993/z15kv-48b08eb854b14f0aa590cdfd2f465fe4.png",
+        "imageSliced": "https://images.koji-cdn.com/96d9efe2-247a-4e52-8c76-d88d7852e993/0v3hj-a3160ff0dbfa42e3bb655d0ce7ad3f0b.png",
+        "imageSplat": "https://images.koji-cdn.com/96d9efe2-247a-4e52-8c76-d88d7852e993/q9960-281307f242394e58b653181f33e52d0f.png"
+      },
+      {
+        "image": "https://images.koji-cdn.com/96d9efe2-247a-4e52-8c76-d88d7852e993/ou1eu-fb15a49d1dbd4528b636d66b7f920b2b.png",
+        "imageSliced": "https://images.koji-cdn.com/96d9efe2-247a-4e52-8c76-d88d7852e993/j39v4-7fa631e6d5bf400384955e106b9b5c0d.png",
+        "imageSplat": "https://images.koji-cdn.com/96d9efe2-247a-4e52-8c76-d88d7852e993/03od9-d284f3e2667a4f079f916715286ae9ae.png"
+      },
+      {
+        "image": "https://images.koji-cdn.com/96d9efe2-247a-4e52-8c76-d88d7852e993/phw29-4523b074e9ef4376921026d5e7500bb7.png",
+        "imageSliced": "https://images.koji-cdn.com/96d9efe2-247a-4e52-8c76-d88d7852e993/4n02v-10903a1e08884fcabbd866d0953782c8.png",
+        "imageSplat": "https://images.koji-cdn.com/96d9efe2-247a-4e52-8c76-d88d7852e993/x1dax-e93eee7e0d274e6694c5d6219d0de377.png"
+      },
+      {
+        "image": "https://images.koji-cdn.com/96d9efe2-247a-4e52-8c76-d88d7852e993/ngx8x-e91f86b9503c40e9a68a0a77a514104a.png",
+        "imageSliced": "https://images.koji-cdn.com/96d9efe2-247a-4e52-8c76-d88d7852e993/omi05-24b8353763a84f0091f165f86a73543c.png",
+        "imageSplat": "https://images.koji-cdn.com/96d9efe2-247a-4e52-8c76-d88d7852e993/d8fch-938e43d4c2914fd6aba06843dd3f236a.png"
+      },
+      {
+        "image": "https://images.koji-cdn.com/96d9efe2-247a-4e52-8c76-d88d7852e993/22mck-ebea7d422a7f4d7185b3d0c2f3d75bb9.png",
+        "imageSliced": "https://images.koji-cdn.com/96d9efe2-247a-4e52-8c76-d88d7852e993/v2flx-6010ce0fa81d45ea949321e1eecf8da6.png",
+        "imageSplat": "https://images.koji-cdn.com/96d9efe2-247a-4e52-8c76-d88d7852e993/0z6uk-46a60f74b2244c0bbe8291473b2122fe.png"
+      }
+    ]
+  },
+  "images": {
+    "soundImage": "https://i.imgur.com/rtFppa8.png",
+    "muteImage": "https://i.imgur.com/AR7C733.png",
+    "lifeIcon": "https://i.imgur.com/8B3id3k.png",
+    "bomb": "https://i.imgur.com/2gSIiwe.png",
+    "explosion": "https://i.imgur.com/p7gDagY.png"
+  },
+  "sounds": {
+    "music": "https://objects.koji-cdn.com/96d9efe2-247a-4e52-8c76-d88d7852e993/DungeonTheme.mp3",
+    "sliceSound": "https://objects.koji-cdn.com/96d9efe2-247a-4e52-8c76-d88d7852e993/splat2.wav",
+    "explosionSound": "https://objects.koji-cdn.com/96d9efe2-247a-4e52-8c76-d88d7852e993/explosion.wav",
+    "criticalSound": "https://objects.koji-cdn.com/96d9efe2-247a-4e52-8c76-d88d7852e993/critical.wav",
+    "swingSound": "https://objects.koji-cdn.com/96d9efe2-247a-4e52-8c76-d88d7852e993/swing.wav",
+    "comboSound": "https://objects.koji-cdn.com/96d9efe2-247a-4e52-8c76-d88d7852e993/combo.wav",
+    "loseGameSound": "https://objects.koji-cdn.com/96d9efe2-247a-4e52-8c76-d88d7852e993/lose.wav",
+    "sliceSound2": "https://objects.koji-cdn.com/96d9efe2-247a-4e52-8c76-d88d7852e993/splat3.wav"
+  },
+  "strings": {
+    "fontFamily": "https://fonts.googleapis.com/css?family=Permanent+Marker",
+    "title": "FRUIT SLICER",
+    "instructions1": "Slice fruit!",
+    "instructions2": "Avoid BOMBS!",
+    "instructions3": "Become a master Chef!",
+    "gameOverText": "GAME OVER",
+    "highScoreText": "High Score:",
+    "playButtonText": "START SLICING",
+    "leaderboardButtonText": "LEADERBOARD",
+    "scoreText": "Score:",
+    "highscoreText": "High Score:",
+    "highscoreGainedText": "New High Score!",
+    "lives": "3",
+    "maxLives": "6",
+    "scoreGain": "1",
+    "scoreGainPerfect": "25",
+    "criticalText": "CRITICAL",
+    "criticalCHance": "10",
+    "criticalChance": "10",
+    "criticalModifier": "5",
+    "comboDuration": "400",
+    "fruitSpawnMin": "6",
+    "fruitSpawnMax": "12",
+    "maxSplats": "50",
+    "bombChance": "10",
+    "emailInputEnabled": false
+  },
+  "deploy": {
+    "subdomain": ".withkoji.com",
+    "frontend": {
+      "output": "frontend/build",
+      "commands": [
+        "cd frontend",
+        "npm install",
+        "export NODE_ENV=production && npm run build"
+      ]
+    },
+    "backend": {
+      "output": "backend",
+      "type": "dynamic",
+      "commands": [
+        "cd backend",
+        "npm install",
+        "export NODE_ENV=production && npm run compile"
+      ]
+    }
+  },
+  "develop": {
+    "frontend": {
+      "path": "frontend",
+      "port": 8080,
+      "events": {
+        "started": "[webpack] Frontend server started",
+        "building": "[webpack] Frontend building",
+        "built": "Compiled successfully.",
+        "build-error": "[webpack] Frontend build error"
+      },
+      "startCommand": "npm start"
+    },
+    "backend": {
+      "path": "backend",
+      "port": 3333,
+      "startCommand": "npm run start-dev",
+      "events": {
+        "started": "[koji] backend started",
+        "log": "[koji-log]"
+      }
+    }
+  },
+  "pages": [
+    {
+      "name": "App",
+      "route": "/",
+      "path": "frontend"
+    }
+  ],
+  "serviceMap": {
+    "remy": "https://remy-f9bed3e3-d07f-490a-a2b1-bc7ede19082a.koji-staging.com",
+    "frontend": "https://8080-d3f1b7d7-9b23-49df-8b25-b9f8e6f15d70.koji-staging.com",
+    "backend": "https://3333-d3f1b7d7-9b23-49df-8b25-b9f8e6f15d70.koji-staging.com"
+  },
+  "metadata": {
+    "projectId": "68f648b3-4c93-4ac0-b65b-503ba218c122"
+  }
+}

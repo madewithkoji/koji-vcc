@@ -4,7 +4,7 @@
  * Code is adapted from Boris Cherny's json-schema-to-typescript project
  * at https://github.com/bcherny/json-schema-to-typescript
  */
-import { findKey, isPlainObject, map } from 'lodash';
+import { findKey, isPlainObject, map, includes } from 'lodash';
 import { generateName, hasStandaloneName, typeOfSchema, DEFAULT_OPTIONS } from './utils';
 
 /**
