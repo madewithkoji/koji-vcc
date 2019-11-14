@@ -5,6 +5,13 @@ import findRootDirectory from './findRootDirectory';
 
 const writeConfig = () => {
   const root = findRootDirectory();
+
+  // Add errors to the config
+  const errors = [];
+
+  // Track all keys
+  const keyPaths = {};
+
   // Add config items from koji json files
   const projectConfig = readDirectory(root)
     .reduce((config, path) => {
@@ -12,6 +19,14 @@ const writeConfig = () => {
         if (!(path.endsWith('koji.json') || path.includes('.koji')) && !path.includes('.koji-resources')) return config;
         const file = JSON.parse(fs.readFileSync(path, 'utf8'));
         Object.keys(file).forEach((key) => {
+          // Multiple @@editor keys are expected
+          if (key !== '@@editor') {
+            if (keyPaths[key]) {
+              keyPaths[key].push(path);
+            } else {
+              keyPaths[key] = [path];
+            }
+          }
           // If the key already exists in the project config, use it
           let configValue = config[key];
           const fileValue = file[key];
@@ -33,6 +48,13 @@ const writeConfig = () => {
       return config;
     }, {});
 
+  // Check for duplicate keys and write errors
+  Object.keys(keyPaths).forEach((key) => {
+    if (keyPaths[key].length > 1) {
+      errors.push(`Duplicate key "${key}" detected in the following files:\n${keyPaths[key].map((p) => `${p}\n`).join('')}`);
+    }
+  });
+
   // Expose the serviceMap based on environment variables
   projectConfig.serviceMap = Object.keys(process.env).reduce((serviceMap, envVariable) => {
     if (envVariable.startsWith('KOJI_SERVICE_URL')) {
@@ -46,6 +68,9 @@ const writeConfig = () => {
     ...(projectConfig.metadata || {}),
     projectId: process.env.KOJI_PROJECT_ID,
   };
+
+  // Write the errors
+  projectConfig.errors = errors;
 
   // Write the generated config to a json file
   try {
