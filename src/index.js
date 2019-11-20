@@ -5,7 +5,7 @@ import deepDiff from "deep-diff";
 function deprecationNotice(method, isBreaking = false) {
   if (isBreaking) {
     console.warn(
-      `[@withkoji/vcc] ${method} is deprectated and no longer available.`
+      `[@withkoji/vcc] ${method} is deprecated and no longer available.`
     );
   } else {
     console.warn(
