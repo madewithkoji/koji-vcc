@@ -48,7 +48,7 @@ Then modify your `package.json` scripts to add a custom command:
   "scripts: {
     ...
     "watch": "koji-vcc watch",
-    "start-windows": "npm-run-all -s watch start"
+    "start-windows": "npm-run-all -p watch start"
   }
 }
 ```
