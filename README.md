@@ -175,8 +175,12 @@ const data = await fetch(`${Koji.config.serviceMap.backend}/getScores`);
 
 You can subscribe to an event that will notify you whenever a VCC value changes, so you can update your application while it's running, without requiring a full reload.
 
+Note: This subscription may prevent HMR or other live reload from triggering.
+
 ```
 import Koji from '@withkoji/vcc';
+
+Koji.enableConfigDidChange();
 
 Koji.configDidChange.subscribe(e => {
   console.log("Previous config": e.previousValue);
