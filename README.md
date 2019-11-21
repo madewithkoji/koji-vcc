@@ -183,9 +183,9 @@ import Koji from '@withkoji/vcc';
 Koji.enableConfigDidChange();
 
 Koji.configDidChange.subscribe(e => {
-  console.log("Previous config": e.previousValue);
-  console.log("Current config": e.newValue);
-  console.log("Changes": e.changes);
+  console.log("Previous config:", e.previousValue);
+  console.log("Current config:", e.newValue);
+  console.log("Changes:", e.changes);
 })
 ```
 
