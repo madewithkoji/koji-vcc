@@ -6,20 +6,23 @@ This package will
 - monitor those files and reload the project when they change
 - map some `ENV` variables to make endpoints easily accessible
 
+### Installation
+
+`npm install --save @withkoji/vcc`
+
 ### Moving from `koji-tools`?
 
 1. Remove koji-tools from your package.json
 2. Run `npm remove koji-tools`
 3. Install `npm install --save @withkoji/vcc`
 4. Remove any `postbuild` script from your package.json
-5. Change your `prestart` comment to `koji-vcc watch &`
-6. Update imports to be `import Koji from '@withkoji/vcc'`
-
-### Installation
-
-`npm install --save @withkoji/vcc`
+5. Update imports to be `import Koji from '@withkoji/vcc'`
+6. Remove your existing `prestart` command
+7. Implement the new watcher using the environment-specific instructions below
 
 ### Starting the watcher
+
+#### Linux/OSX
 
 To start the file watcher alongside your project, you need to add a `prestart` command to your `package.json` scripts:
 ```
@@ -30,6 +33,29 @@ To start the file watcher alongside your project, you need to add a `prestart` c
   }
 }
 ```
+
+#### Windows
+
+To start the file watcher alongside your project, you'll need to create a custom workflow to work locally (that won't interfere with your project inside the Koji editor/environment):
+
+Install `npm-run-all`:
+
+`npm i --save-dev npm-run-all`
+
+Then modify your `package.json` scripts to add a custom command:
+```
+{
+  "scripts: {
+    ...
+    "watch": "koji-vcc watch",
+    "start-windows": "npm-run-all -p watch start"
+  }
+}
+```
+
+In your local Windows environment, you can now start the watcher using:
+
+`npm run start-windows`
 
 ### Usage (Client)
 
