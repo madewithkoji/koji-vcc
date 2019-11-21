@@ -17,42 +17,43 @@ function deprecationNotice(method, isBreaking = false) {
 const configDidChange = new SimpleEvent();
 let config = require('./res/config.json');
 
-if (module.hot) {
-  module.hot.accept('./res/config.json', () => {
-    const previousValue = { ...config };
-    // eslint-disable-next-line global-require
-    config = require('./res/config.json');
-
-    const originalDiff = deepDiff(previousValue, config);
-    console.log(originalDiff);
-
-    const changes = originalDiff.map((diff) => {
-      if (diff.kind === 'A') {
-        return {
-          previousValue: diff.item.lhs,
-          newValue: diff.item.rhs,
-          path: [...diff.path, diff.index],
-        };
-      }
-
-      return {
-        previousValue: diff.lhs,
-        newValue: diff.rhs,
-        path: diff.path,
-      };
-    });
-
-    configDidChange.emit({
-      newValue: config,
-      previousValue,
-      changes,
-    });
-  });
-}
-
 export default {
   config,
   configDidChange,
+  enableConfigDidChange: () => {
+    if (module.hot) {
+      module.hot.accept('./res/config.json', () => {
+        const previousValue = { ...config };
+        // eslint-disable-next-line global-require
+        config = require('./res/config.json');
+
+        const originalDiff = deepDiff(previousValue, config);
+        console.log(originalDiff);
+
+        const changes = originalDiff.map((diff) => {
+          if (diff.kind === 'A') {
+            return {
+              previousValue: diff.item.lhs,
+              newValue: diff.item.rhs,
+              path: [...diff.path, diff.index],
+            };
+          }
+
+          return {
+            previousValue: diff.lhs,
+            newValue: diff.rhs,
+            path: diff.path,
+          };
+        });
+
+        configDidChange.emit({
+          newValue: config,
+          previousValue,
+          changes,
+        });
+      });
+    }
+  },
   resolveSecret,
 
   // Deprecated
