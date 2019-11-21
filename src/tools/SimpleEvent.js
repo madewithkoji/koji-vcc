@@ -1,34 +1,37 @@
-import Handle from "./Handle";
+import Handle from './Handle';
 
 export default class SimpleEvent {
   constructor() {
-    this._handlers = undefined;
+    this.handlers = undefined;
   }
+
   subscribe(handler, includeLast = false) {
-    if (this._handlers == null) {
-      this._handlers = [];
+    if (this.handlers == null) {
+      this.handlers = [];
     }
-    this._handlers.push(handler);
-    if (this._lastEvent != null && includeLast) {
-      handler(this._lastEvent);
+    this.handlers.push(handler);
+    if (this.lastEvent != null && includeLast) {
+      handler(this.lastEvent);
     }
     return new Handle(() => this.unsubscribe(handler));
   }
+
   emit(event) {
-    if (this._handlers != null) {
-      this._handlers.forEach(handler => {
-        handler(event, this._lastEvent);
+    if (this.handlers != null) {
+      this.handlers.forEach((handler) => {
+        handler(event, this.lastEvent);
       });
     }
-    this._lastEvent = event;
+    this.lastEvent = event;
   }
+
   unsubscribe(handler) {
-    if (this._handlers == null) {
+    if (this.handlers == null) {
       return;
     }
-    this._handlers = this._handlers.filter(h => h !== handler);
-    if (this._handlers.length === 0) {
-      this._handlers = undefined;
+    this.handlers = this.handlers.filter((h) => h !== handler);
+    if (this.handlers.length === 0) {
+      this.handlers = undefined;
     }
   }
 }

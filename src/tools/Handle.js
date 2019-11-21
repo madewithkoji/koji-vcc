@@ -1,16 +1,17 @@
 export default class Handle {
   constructor(onRelease) {
     this.release = () => {
-      if (this._releaseFn == null) {
+      if (this.releaseFn == null) {
         return false;
       }
-      this._releaseFn();
-      this._releaseFn = undefined;
+      this.releaseFn();
+      this.releaseFn = undefined;
       return true;
     };
-    this._releaseFn = onRelease;
+    this.releaseFn = onRelease;
   }
+
   get isReleased() {
-    return this._releaseFn == null;
+    return this.releaseFn == null;
   }
 }
