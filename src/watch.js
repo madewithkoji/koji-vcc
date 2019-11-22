@@ -1,12 +1,10 @@
 import chokidar from 'chokidar';
-
 import findRootDirectory from './tools/findRootDirectory';
-
 import writeConfig from './tools/writeConfig';
 
-const watch = () => {
+const watch = (defFile = false) => {
   // Generate a base config
-  writeConfig();
+  writeConfig(defFile);
 
   // Note: Polling is used by default in the container via
   // the CHOKIDAR_USEPOLLING=1 env that is set in the container
@@ -25,7 +23,7 @@ const watch = () => {
       }
       watcherDebounce = setTimeout(() => {
         console.log('[@withkoji/vcc] Rebuilding config...');
-        writeConfig();
+        writeConfig(defFile);
       }, 250);
     })
     .on('ready', () => {
