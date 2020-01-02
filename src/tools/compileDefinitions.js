@@ -35,7 +35,6 @@ function jsonWalker(json, key, level, parentType) {
       const key = pair[0];
       const value = pair[1];
       const env = { key, level, value };
-      console.log(`key=${key}, value=${value}, level=${level}`);
 
       if (typeof json[key] === "object" || json[key] instanceof Array) {
         return that.lineDecorator.call(env, that.innerWalker(json[key], key, level + 1), parentType);
