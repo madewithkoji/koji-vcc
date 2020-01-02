@@ -2,6 +2,8 @@
  * compileDefinitions -
  * Automatically generates a definitions file for the Koji.config object.
  * This helps TypeScript developers have types and context for VCC config files.
+ * This will also aid anyone using VSCode (and similar environments, like Koji!)
+ * to see the config.json members and their types.
  */
 import _ from 'lodash';
 
@@ -33,13 +35,14 @@ function jsonWalker(json, key, level, parentType) {
       const key = pair[0];
       const value = pair[1];
       const env = { key, level, value };
+      console.log(`key=${key}, value=${value}, level=${level}`);
 
       if (typeof json[key] === "object" || json[key] instanceof Array) {
         return that.lineDecorator.call(env, that.innerWalker(json[key], key, level + 1), parentType);
       } else if (typeof json[key] === "string" || typeof json[key] === "boolean" || typeof json[key] === "number") {
-          return that.lineDecorator.call(env, `() => ${typeof json[key]}`, parentType);
+          return that.lineDecorator.call(env, `${typeof json[key]}`, parentType);
       } else {
-        throw new Error(`[@withkoji/vcc] TypeScript config parser - Malformed object data for ID ${key} & value ${value}`);
+        throw new Error(`[@withkoji/vcc] Config definitions parser - Malformed object data for ID ${key} & value ${value}`);
       }
     });
 
@@ -50,7 +53,6 @@ function jsonWalker(json, key, level, parentType) {
 const createJsonDefinitions = (json) => {
   function innerWalker(json, key, level) {
     // If this is an array, we will build the internals without a key, since arrays don't need them
-    // TODO: Figure out how to get children of an array to know that they are so they don't include their "key"...
     let jsonType = "object";
     if (Array.isArray(json)) {
       jsonType = "array";
@@ -62,7 +64,7 @@ const createJsonDefinitions = (json) => {
         const lineContent = parentType === "object" ? `${toSafeString(this.key)}: ${type}` : `${type}`;
         const comment =
           valueType === "string" || valueType === "boolean" || valueType === "number"
-            ? `${"  ".repeat(this.level)}/** Value: ${this.value} */\n`
+            ? `${"  ".repeat(this.level)}/** Type: ${valueType}, Value: ${this.value} */\n`
             : "";
         return `${comment}${"  ".repeat(this.level)}${lineContent}`;
       },
@@ -83,9 +85,9 @@ const createJsonDefinitions = (json) => {
       const lineContent = parentType === "object" ? `${toSafeString(this.key)} = ${type};` : `${type},`;
       const comment =
         valueType === "string" || valueType === "boolean" || valueType === "number"
-          ? `/** Value: ${this.value} */\n`
+          ? `/** Type: ${valueType}, Value: ${this.value} */\n`
           : "";
-      return `${comment}export const ${lineContent}`;
+      return `${comment}${lineContent}`;
     },
     innerWalker,
     blockDecorator: (types) => types.join("\n")
