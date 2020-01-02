@@ -1,4 +1,4 @@
-// Type definitions for koji-vcc 1.0.2
+// Type definitions for koji-vcc 1.1.2
 // Project: https://github.com/madewithkoji/koji-vcc
 // Definitions by: Jeff Peterson <https://github.com/bdjeffyp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
