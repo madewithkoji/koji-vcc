@@ -3,6 +3,7 @@
 This package will
 
 - ingest Koji VCC json files and create one big `config` object
+- aid developers referencing VCC properties with tooltips stating their type and value (when using VSCode/Koji editor/etc)
 - monitor those files and reload the project when they change
 - map some `ENV` variables to make endpoints easily accessible
 
@@ -118,6 +119,8 @@ import Koji from '@withkoji/vcc';
 
 console.log(Koji.config.settings.name); // Hello World!
 ```
+
+Hovering over the `name` property will display a tooltip showing **Type: string, Value: Hello World!**. This allows developers to reference what content will be displayed without having to switch back to the associated VCC file. Additionally, any strings that reference a web address (such as images, sounds, etc) can be clicked on to see the asset in a new browser tab.
 
 ### ENV Mapping
 
