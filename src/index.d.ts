@@ -2,7 +2,7 @@
 // Project: https://github.com/madewithkoji/koji-vcc
 // Definitions by: Jeff Peterson <https://github.com/bdjeffyp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.7
 import Config from './res/config.json';
 
 declare module "@withkoji/vcc" {
