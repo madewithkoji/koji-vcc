@@ -63,16 +63,16 @@ const createJsonDefinitions = (json) => {
         const lineContent = parentType === "object" ? `${toSafeString(this.key)}: ${type}` : `${type}`;
         const comment =
           valueType === "string" || valueType === "boolean" || valueType === "number"
-            ? `${"  ".repeat(this.level)}/** Type: ${valueType}, Value: ${this.value} */\n`
+            ? `${"  ".repeat(this.level + 1)}/** Value: ${this.value}, Type: ${valueType} */\n`
             : "";
-        return `${comment}${"  ".repeat(this.level)}${lineContent}`;
+        return `${comment}${"  ".repeat(this.level + 1)}${lineContent}`;
       },
       innerWalker,
       blockDecorator: function(types, parentType) {
         if (parentType === "object") {
-          return `{\n${types.join(",\n")}\n${"  ".repeat(this.level - 1)}}`;
+          return `{\n${types.join(",\n")}\n${"  ".repeat(this.level)}}`;
         } else {
-          return `[\n${types.join(",\n")}\n${"  ".repeat(this.level - 1)}]`;
+          return `[\n${types.join(",\n")}\n${"  ".repeat(this.level)}]`;
         }
       }
     })(json, key, level, jsonType);
@@ -81,12 +81,12 @@ const createJsonDefinitions = (json) => {
     lineDecorator: function(type, parentType) {
       if (this.key === '@@editor') return;
       const valueType = typeof this.value;
-      const lineContent = parentType === "object" ? `${toSafeString(this.key)} = ${type};` : `${type},`;
+      const lineContent = parentType === "object" ? `${toSafeString(this.key)}: ${type};` : `${type},`;
       const comment =
         valueType === "string" || valueType === "boolean" || valueType === "number"
-          ? `/** Type: ${valueType}, Value: ${this.value} */\n`
+          ? `  /** Value: ${this.value}, Type: ${valueType} */\n`
           : "";
-      return `${comment}${lineContent}`;
+      return `${comment}  ${lineContent}`;
     },
     innerWalker,
     blockDecorator: (types) => types.join("\n")

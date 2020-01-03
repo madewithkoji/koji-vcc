@@ -3,7 +3,7 @@
 // Definitions by: Jeff Peterson <https://github.com/bdjeffyp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
-import { Config } from './res/config.json';
+import Config from './res/config.json';
 
 declare module "@withkoji/vcc" {
   class Handle {
@@ -31,7 +31,7 @@ declare module "@withkoji/vcc" {
     emit(value: T): void;
   }
 
-  namespace Koji {
+  export namespace Koji {
     const config: Config;
     const configDidChange: SimpleEvent<ConfigDidChangeArgs>;
     function resolveSecret(key: string): string | null;
@@ -40,5 +40,5 @@ declare module "@withkoji/vcc" {
     function request(): void;
     function pwaPrompt(): void;
   }
-  export default Koji;
 }
+export default Koji;

@@ -65,7 +65,7 @@ const writeConfig = (defFile = false) => {
     try {
       const bannerComment =
         `/* tslint:disable */\n/**\n * Koji.config definitions file -\n * This file was automatically generated. Any modifications by hand will\n * be overwritten by Koji's VCC watcher when started or while running.\n * Newly created and changed Koji.config objects will be added by the watcher\n * to this file as VCC objects are modified.\n */\n`;
-      const definition = `${bannerComment}export class Config {\n${compile(projectConfig)}\n}`;
+      const definition = `${bannerComment}export class Config {\n${compile(projectConfig)}\n}\nexport default Config;\n`;
       fs.writeFileSync(`${__dirname}/../res/config.json.d.ts`, definition);
     } catch (err) {
       const error = new Error(`[@withkoji/vcc] ${err.message}`);
