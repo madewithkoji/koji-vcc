@@ -1,6 +1,6 @@
 {
   "name": "@withkoji/vcc",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A library that exposes VCC and ENV values for easy consumption in a Koji app",
   "main": "dist/index.js",
   "files": [
@@ -12,6 +12,7 @@
     "prepack": "npm run build",
     "postinstall": "node ./bin/cmd.js postinstall",
     "start-dev": "babel src --watch --out-dir dist",
+    "postinstall-ts": "node ./bin/cmd.js postinstall-ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

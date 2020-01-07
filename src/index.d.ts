@@ -1,8 +1,9 @@
-// Type definitions for koji-vcc 1.0.2
+// Type definitions for koji-vcc 1.1.2
 // Project: https://github.com/madewithkoji/koji-vcc
 // Definitions by: Jeff Peterson <https://github.com/bdjeffyp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.7
+import Config from './res/config.json';
 
 declare module "@withkoji/vcc" {
   class Handle {
@@ -30,8 +31,8 @@ declare module "@withkoji/vcc" {
     emit(value: T): void;
   }
 
-  namespace Koji {
-    const config: object;
+  export namespace Koji {
+    const config: Config;
     const configDidChange: SimpleEvent<ConfigDidChangeArgs>;
     function resolveSecret(key: string): string | null;
     function pageLoad(): void;
@@ -39,5 +40,5 @@ declare module "@withkoji/vcc" {
     function request(): void;
     function pwaPrompt(): void;
   }
-  export default Koji;
 }
+export default Koji;
