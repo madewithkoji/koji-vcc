@@ -122,6 +122,16 @@ console.log(Koji.config.settings.name); // Hello World!
 
 Hovering over the `name` property will display a tooltip showing **Type: string, Value: Hello World!**. This allows developers to reference what content will be displayed without having to switch back to the associated VCC file. Additionally, any strings that reference a web address (such as images, sounds, etc) can be clicked on to see the asset in a new browser tab.
 
+#### Building TypeScript Projects with VCC
+
+In order for your TypeScript projects to properly publish with Koji, you will need to add the following line to your `scripts` section of your project's `package.json`:
+
+```
+"prebuild": "koji-vcc preinstall-ts"
+```
+
+This causes your app to build the VCC config files prior to compiling your TypeScript code when publishing, just like when koji-vcc sets a watch on your config files during development. This is necessary to prevent errors by TypeScript during compile time.
+
 ### ENV Mapping
 
 In order to make some `ENV` variables accessible to the frontend (browser), this package also supports some basic mapping so you can do things like `fetch` information from a backend service.
