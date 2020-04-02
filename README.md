@@ -162,8 +162,7 @@ Services that are defined in your `develop.json` and `deploy.json` will be creat
             "started": "[koji] backend started",
             "log": "[koji-log]"
         }
-    },
-
+    }
   }
 }
 
