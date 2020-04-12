@@ -296,3 +296,40 @@ const subscription = Koji.configDidChange.subscribe(e => {
 
 subscription.release();
 ```
+
+### Instant Remixing (beta)
+
+To support instant remixing, import and instantiate the`InstantRemix` class:
+```
+import { InstantRemixing } from '@withkoji/vcc';
+
+const instantRemixing = new InstantRemixing();
+```
+
+Use the getter to pull initial values, automatically accounting for deployed injections:
+```
+const backgroundColor = instantRemixing.get(['colors', 'backgroundColor']);
+```
+
+Add a listener in your app to detect changes:
+```
+instantRemixing.addListener((path, newValue) => {
+  // inject the new value into your app
+});
+```
+
+Tell the class that your app is ready to start receiving events:
+```
+instantRemixing.ready();
+```
+
+If you have configured your app to support instant remixing and are ready to make
+it available to users, add the `InstantRemixing` entitlement to your app by creating a 
+file in your `.koji` directory called `entitlements.json` with the body:
+```
+{
+  "entitlements": {
+    "InstantRemixing": true
+  }
+}
+```

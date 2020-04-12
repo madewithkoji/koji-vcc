@@ -1,6 +1,6 @@
 {
   "name": "@withkoji/vcc",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "A library that exposes VCC and ENV values for easy consumption in a Koji app",
   "main": "dist/index.js",
   "files": [
@@ -26,8 +26,6 @@
   "bin": {
     "koji-vcc": "./bin/cmd.js"
   },
-  "author": "jonesnxt",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/madewithkoji/koji-vcc/issues"
   },
@@ -36,7 +34,9 @@
   "dependencies": {
     "ansi-colors-and-styles": "^1.0.3",
     "chokidar": "^3.0.2",
-    "deep-diff": "^1.0.2"
+    "deep-diff": "^1.0.2",
+    "deepmerge": "^4.2.2",
+    "lodash": "^4.17.15"
   },
   "browser": {
     "fs": false,

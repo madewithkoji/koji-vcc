@@ -1,6 +1,7 @@
 import deepDiff from 'deep-diff';
 import resolveSecret from './tools/resolveSecret';
 import SimpleEvent from './tools/SimpleEvent';
+import InstantRemixing from './InstantRemixing';
 
 function deprecationNotice(method, isBreaking = false) {
   if (isBreaking) {
@@ -61,4 +62,6 @@ export default {
   on: () => deprecationNotice('Koji.on()'),
   request: () => deprecationNotice('Koji.request()', true),
   pwaPrompt: () => deprecationNotice('Koji.pwaPrompt()', true),
+
+  InstantRemixing,
 };
