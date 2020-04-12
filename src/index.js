@@ -62,6 +62,9 @@ export default {
   on: () => deprecationNotice('Koji.on()'),
   request: () => deprecationNotice('Koji.request()', true),
   pwaPrompt: () => deprecationNotice('Koji.pwaPrompt()', true),
+};
 
+export {
   InstantRemixing,
 };
+
