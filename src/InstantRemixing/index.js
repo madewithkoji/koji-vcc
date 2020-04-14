@@ -61,28 +61,14 @@ export default class InstantRemixing {
   registerListeners() {
     // Coming in from an iframe (instant remix)
     window.addEventListener('message', ({ data }) => {
-      try {
-        const {
-          path,
-          newValue,
-        } = data;
-        this.emitChange(path, newValue);
-      } catch (err) {
-        console.log(err);
-      }
-    });
-
-    // Coming in from a websocket (live preview)
-    window.addEventListener('KojiPreview.DidChangeVcc', (e) => {
-      const { event } = e.detail;
-
+      const { event } = data;
       // Handle value change events
       if (event === 'KojiPreview.DidChangeVcc') {
         try {
           const {
             path,
             newValue,
-          } = e.detail;
+          } = data;
           this.emitChange(path, newValue);
         } catch (err) {
           console.log(err);
@@ -91,12 +77,29 @@ export default class InstantRemixing {
 
       // Handle visibility changed events
       if (event === 'KojiPreview.VisibilityDidChange') {
+        try {
+          const {
+            isVisible,
+          } = data;
+          this.visibilityListeners.forEach((callback) => {
+            callback(isVisible);
+          });
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    });
+
+    // Coming in from a websocket (live preview)
+    window.addEventListener('KojiPreview.DidChangeVcc', (e) => {
+      try {
         const {
-          isVisible,
+          path,
+          newValue,
         } = e.detail;
-        this.visibilityListeners.forEach((callback) => {
-          callback(isVisible);
-        });
+        this.emitChange(path, newValue);
+      } catch (err) {
+        console.log(err);
       }
     });
   }
