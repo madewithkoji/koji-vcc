@@ -6,6 +6,7 @@ const config = require('../res/config.json');
 export default class InstantRemixing {
   constructor() {
     this.listeners = [];
+    this.visibilityListeners = [];
 
     this.resolvedConfig = config;
 
@@ -38,6 +39,13 @@ export default class InstantRemixing {
     this.listeners.push(callback);
   }
 
+  // Add a listener that is triggered when the visibility of the app is changed,
+  // so we can "pause" the state or stop rendering if the user can't see the app
+  // because they have the editor open
+  addVisibilityListener(callback) {
+    this.visibilityListeners.push(callback);
+  }
+
   // Required to notify parent containers that the window is ready to receive
   // events over the wire. Parent is responsible for queueing events and
   // redispatching them if the app is not ready to receive them.
@@ -66,14 +74,29 @@ export default class InstantRemixing {
 
     // Coming in from a websocket (live preview)
     window.addEventListener('KojiPreview.DidChangeVcc', (e) => {
-      try {
+      const { event } = e.detail;
+
+      // Handle value change events
+      if (event === 'KojiPreview.DidChangeVcc') {
+        try {
+          const {
+            path,
+            newValue,
+          } = e.detail;
+          this.emitChange(path, newValue);
+        } catch (err) {
+          console.log(err);
+        }
+      }
+
+      // Handle visibility changed events
+      if (event === 'KojiPreview.VisibilityDidChange') {
         const {
-          path,
-          newValue,
+          isVisible,
         } = e.detail;
-        this.emitChange(path, newValue);
-      } catch (err) {
-        console.log(err);
+        this.visibilityListeners.forEach((callback) => {
+          callback(isVisible);
+        });
       }
     });
   }
