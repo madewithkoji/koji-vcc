@@ -333,3 +333,11 @@ file in your `.koji` directory called `entitlements.json` with the body:
   }
 }
 ```
+
+You can also register an event handler to receive changes in visibility, allowing 
+you to pause an app when the user has opened a VCC editor:
+```
+instantRemixing.addVisibilityListener((isVisible) => {
+    console.log(`[IsVisible] ${isVisible}`);
+});
+```
