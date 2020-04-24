@@ -18,6 +18,9 @@ export default class InstantRemixing {
       this.resolvedConfig = deepmerge(this.resolvedConfig, window.KOJI_OVERRIDES.overrides);
     }
 
+    this.isRemixing = false;
+    this.remixListeners = [];
+
     this.registerListeners();
   }
 
@@ -46,6 +49,21 @@ export default class InstantRemixing {
     this.visibilityListeners.push(callback);
   }
 
+  // Handler to receive events when we figure out if we're being remixed or not,
+  // to allow the app to present itself differently when being remixed
+  onSetRemixing(callback) {
+    this.remixListeners.push(callback);
+  }
+
+  onPresentControl(path) {
+    if (window.parent) {
+      window.parent.postMessage({
+        _type: 'KojiPreview.PresentControl',
+        path,
+      }, '*');
+    }
+  }
+
   // Required to notify parent containers that the window is ready to receive
   // events over the wire. Parent is responsible for queueing events and
   // redispatching them if the app is not ready to receive them.
@@ -62,6 +80,19 @@ export default class InstantRemixing {
     // Coming in from an iframe (instant remix)
     window.addEventListener('message', ({ data }) => {
       const { event } = data;
+
+      // Handle initialization event
+      if (event === 'KojiPreview.IsRemixing') {
+        try {
+          this.isRemixing = true;
+          this.remixListeners.forEach((callback) => {
+            callback(true);
+          });
+        } catch (err) {
+          console.log(err);
+        }
+      }
+
       // Handle value change events
       if (event === 'KojiPreview.DidChangeVcc') {
         try {
