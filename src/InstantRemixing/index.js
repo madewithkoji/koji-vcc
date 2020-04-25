@@ -21,6 +21,12 @@ export default class InstantRemixing {
     this.isRemixing = false;
     this.remixListeners = [];
 
+    this.activePath = null;
+    this.activePathListeners = [];
+
+    this.currentState = null;
+    this.currentStateListeners = [];
+
     this.registerListeners();
   }
 
@@ -55,11 +61,20 @@ export default class InstantRemixing {
     this.remixListeners.push(callback);
   }
 
-  onPresentControl(path) {
+  onSetActivePath(callback) {
+    this.activePathListeners.push(callback);
+  }
+
+  onSetCurrentState(callback) {
+    this.currentStateListeners.push(callback);
+  }
+
+  onPresentControl(path, attributes = {}) {
     if (window.parent) {
       window.parent.postMessage({
         _type: 'KojiPreview.PresentControl',
         path,
+        attributes,
       }, '*');
     }
   }
@@ -114,6 +129,36 @@ export default class InstantRemixing {
           } = data;
           this.visibilityListeners.forEach((callback) => {
             callback(isVisible);
+          });
+        } catch (err) {
+          console.log(err);
+        }
+      }
+
+      // Handle active path changes
+      if (event === 'KojiPreview.DidSetActivePath') {
+        try {
+          const {
+            path,
+          } = data;
+          this.activePath = path;
+          this.activePathListeners.forEach((callback) => {
+            callback(path);
+          });
+        } catch (err) {
+          console.log(err);
+        }
+      }
+
+      // Handle current state changes
+      if (event === 'KojiPreview.DidSetCurrentState') {
+        try {
+          const {
+            state,
+          } = data;
+          this.currentState = state;
+          this.currentStateListeners.forEach((callback) => {
+            callback(state);
           });
         } catch (err) {
           console.log(err);
