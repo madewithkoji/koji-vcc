@@ -6,7 +6,6 @@ const config = require('../res/config.json');
 export default class InstantRemixing {
   constructor() {
     this.listeners = [];
-    this.visibilityListeners = [];
 
     this.resolvedConfig = config;
 
@@ -44,15 +43,8 @@ export default class InstantRemixing {
   // Add a listener that is triggered when we receive changes to VCC files
   // from window events. `callback` is a function like (path, newValue) => {},
   // where path is an array of keys pointing to the changed value.
-  addListener(callback) {
+  onValueChanged(callback) {
     this.listeners.push(callback);
-  }
-
-  // Add a listener that is triggered when the visibility of the app is changed,
-  // so we can "pause" the state or stop rendering if the user can't see the app
-  // because they have the editor open
-  addVisibilityListener(callback) {
-    this.visibilityListeners.push(callback);
   }
 
   // Handler to receive events when we figure out if we're being remixed or not,
@@ -61,14 +53,17 @@ export default class InstantRemixing {
     this.remixListeners.push(callback);
   }
 
+  // Handler to receive events when the current VCC changes
   onSetActivePath(callback) {
     this.activePathListeners.push(callback);
   }
 
+  // Handler to receive events when the user changes the app's state
   onSetCurrentState(callback) {
     this.currentStateListeners.push(callback);
   }
 
+  // Ask the Koji editor to present a control at a keypath
   onPresentControl(path, attributes = {}) {
     if (window.parent) {
       window.parent.postMessage({
@@ -116,20 +111,6 @@ export default class InstantRemixing {
             newValue,
           } = data;
           this.emitChange(path, newValue);
-        } catch (err) {
-          console.log(err);
-        }
-      }
-
-      // Handle visibility changed events
-      if (event === 'KojiPreview.VisibilityDidChange') {
-        try {
-          const {
-            isVisible,
-          } = data;
-          this.visibilityListeners.forEach((callback) => {
-            callback(isVisible);
-          });
         } catch (err) {
           console.log(err);
         }
