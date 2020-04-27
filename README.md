@@ -385,10 +385,6 @@ file in your `.koji` directory called `entitlements.json` with the body:
 }
 ```
 
-You can also register an event handler to receive changes in visibility, allowing 
-you to pause an app when the user has opened a VCC editor:
-```
-instantRemixing.addVisibilityListener((isVisible) => {
-    console.log(`[IsVisible] ${isVisible}`);
-});
-```
+#### Share images
+
+When the app is shared to social networks, Koji automatically renders a share image based on an app screenshot. If you want to create a custom interface to screenshot, look for the query string paramter `koji-screenshot=1` in the URL. The screenshot size should be 1200x630.
