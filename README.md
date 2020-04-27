@@ -311,16 +311,67 @@ Use the getter to pull initial values, automatically accounting for deployed inj
 const backgroundColor = instantRemixing.get(['colors', 'backgroundColor']);
 ```
 
+Add a listener in your app to whether we're in a remixing state:
+```
+instantRemixing.onSetRemixing((isRemixing) => {
+  //
+});
+```
+
 Add a listener in your app to detect changes:
 ```
-instantRemixing.addListener((path, newValue) => {
+instantRemixing.onValueChanged((path, newValue) => {
   // inject the new value into your app
 });
+```
+
+Add a listener in your app to get notifications when the current editor control has changed, so the app can, e.g., highlight the control or pause an interface
+```
+instantRemixing.onSetActivePath((path) => {
+  //
+});
+```
+
+Add a listener in your app to get notifications when the current state has changed. If an app has more than one state, available states are listed when remixing so the user can quickly preview various screens
+```
+instantRemixing.onSetCurrentState((state) => {
+  //
+});
+```
+
+States are optional, and defined in the `quickstart.json`:
+```
+{
+   "quickstart": {
+        "states": [
+            { "key": "choice", "label": "Choice scene" },
+            { "key": "result", "label": "Result scene" }
+        ]
+    }
+}
 ```
 
 Tell the class that your app is ready to start receiving events:
 ```
 instantRemixing.ready();
+```
+
+Tell Koji to show a VCC when the user requests an edit (e.g., taps on an editable control):
+```
+instantRemixing.onPresentControl(['scope', 'key']);
+```
+
+Optionally, present a control with an element's position/size info, so Koji can attempt to keep the element in frame when it is being edited:
+```
+const {
+  x,
+  y,
+  width,
+  height,
+} = e.target.getBoundingClientRect();
+this.instantRemixing.onPresentControl(['result', 'position'], {
+  position: { x, y, width, height },
+});
 ```
 
 If you have configured your app to support instant remixing and are ready to make
