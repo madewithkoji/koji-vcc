@@ -1,7 +1,9 @@
 import deepDiff from 'deep-diff';
 import resolveSecret from './tools/resolveSecret';
 import SimpleEvent from './tools/SimpleEvent';
+
 import InstantRemixing from './InstantRemixing';
+import FeedSdk from './FeedSdk';
 
 function deprecationNotice(method, isBreaking = false) {
   if (isBreaking) {
@@ -66,5 +68,5 @@ export default {
 
 export {
   InstantRemixing,
+  FeedSdk,
 };
-

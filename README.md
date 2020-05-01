@@ -388,3 +388,7 @@ file in your `.koji` directory called `entitlements.json` with the body:
 #### Share images
 
 When the app is shared to social networks, Koji automatically renders a share image based on an app screenshot. If you want to create a custom interface to screenshot, look for the query string paramter `koji-screenshot=1` in the URL. The screenshot size should be 1200x630.
+
+### Feed SDK (beta)
+
+See documentation in `src/FeedSdk/index.js` for right now. More info coming soon!
