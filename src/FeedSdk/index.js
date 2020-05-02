@@ -5,7 +5,7 @@ export default class FeedSdk {
     // Ugly globals attached to the window right now to avoid having to worry
     // about singletons/initialization state if this class is instantiated
     // multiple times at different timestamps in the app
-    window._KOJI_FEED_SDK_IS_PLAYING = !window.location.search.includes('koji-feed=');
+    window._KOJI_FEED_SDK_IS_PLAYING = !window.location.hash.includes('#koji-feed-key=');
     window._KOJI_FEED_SDK_IS_BUBBLING_CURRENT_TOUCH = true;
 
     this._playbackListeners = [];
@@ -95,23 +95,17 @@ export default class FeedSdk {
   }
 
   // (private) Send a message to the parent, if one exists. Include a "feed token"
-  // that we grab from the query string so we can identify messages originating
+  // that we grab from the hash so we can identify messages originating
   // from this specific app in case it, for whatever reason, appears multiple
   // times in the same feed.
   _postMessage(type, message = {}) {
-    const queryString = window.location.search
-      .replace('?', '')
-      .split('&')
-      .reduce((acc, cur) => {
-        const [key, value] = cur.split('=');
-        acc[key] = decodeURIComponent(value);
-        return acc;
-      }, {});
+    const feedKey = window.location.hash
+      .replace('#koji-feed-key=', '');
 
     if (window.parent) {
       window.parent.postMessage({
         _type: type,
-        _feedKey: queryString['koji-feed'],
+        _feedKey: feedKey,
         ...message,
       }, '*');
     }
