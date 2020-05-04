@@ -14,7 +14,11 @@ export default class InstantRemixing {
     // class is instantiated, merge the values present in that object with
     // the config file that is present on disk.
     if (window.KOJI_OVERRIDES && window.KOJI_OVERRIDES.overrides) {
-      this.resolvedConfig = deepmerge(this.resolvedConfig, window.KOJI_OVERRIDES.overrides);
+      this.resolvedConfig = deepmerge(
+        this.resolvedConfig,
+        window.KOJI_OVERRIDES.overrides,
+        { arrayMerge: (dest, source) => source },
+      );
     }
 
     this.isRemixing = false;
@@ -70,6 +74,17 @@ export default class InstantRemixing {
         _type: 'KojiPreview.PresentControl',
         path,
         attributes,
+      }, '*');
+    }
+  }
+
+  // Explicitly set a value for a VCC at a path
+  onSetValue(path, newValue) {
+    if (window.parent) {
+      window.parent.postMessage({
+        _type: 'KojiPreview.SetValue',
+        path,
+        newValue,
       }, '*');
     }
   }
