@@ -40,5 +40,27 @@ declare module "@withkoji/vcc" {
     function request(): void;
     function pwaPrompt(): void;
   }
+
+  export class InstantRemixing {
+    constructor();
+    get(path: string[]): any;
+    onValueChanged(fn: (path: string[], newValue: any) => void): void;
+    onSetRemixing(fn: (isRemixing: boolean) => void): void;
+    onSetActivePath(fn: (activePath: string[]|null) => void): void;
+    ready(): void;
+    addVisibilityListener(fn: (isVisible: boolean) => void): void;
+
+    remixingActivePath: string[]|null;
+    isRemixing: boolean;
+    onPresentControl(path: string[], attributes: {[index: string]: any}): void;
+  }
+
+  export class FeedSdk {
+    constructor();
+    load(): void;
+    requestCancelTouch(): void;
+    onPlaybackStateChanged(fn: (isPlaying: boolean) => void): void;
+
+  }
 }
 export default Koji;

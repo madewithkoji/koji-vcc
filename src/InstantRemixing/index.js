@@ -108,10 +108,11 @@ export default class InstantRemixing {
 
       // Handle initialization event
       if (event === 'KojiPreview.IsRemixing') {
+        const { isRemixing } = data;
         try {
-          this.isRemixing = true;
+          this.isRemixing = isRemixing;
           this.remixListeners.forEach((callback) => {
-            callback(true);
+            callback(isRemixing);
           });
         } catch (err) {
           console.log(err);
