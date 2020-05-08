@@ -22,6 +22,7 @@ export default class InstantRemixing {
     }
 
     this.isRemixing = false;
+    this.editorAttributes = {};
     this.remixListeners = [];
 
     this.activePath = null;
@@ -108,11 +109,12 @@ export default class InstantRemixing {
 
       // Handle initialization event
       if (event === 'KojiPreview.IsRemixing') {
-        const { isRemixing } = data;
+        const { isRemixing, editorAttributes } = data;
         try {
           this.isRemixing = isRemixing;
+          this.editorAttributes = editorAttributes || {};
           this.remixListeners.forEach((callback) => {
-            callback(isRemixing);
+            callback(isRemixing, editorAttributes || {});
           });
         } catch (err) {
           console.log(err);
