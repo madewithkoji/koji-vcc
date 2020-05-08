@@ -313,10 +313,13 @@ const backgroundColor = instantRemixing.get(['colors', 'backgroundColor']);
 
 Add a listener in your app to whether we're in a remixing state:
 ```
-instantRemixing.onSetRemixing((isRemixing) => {
+instantRemixing.onSetRemixing((isRemixing, editorAttributes) => {
   //
 });
 ```
+
+- `isRemixing` is a bool of whether or not the app is in remixing mode.
+- `editorAttributes` is an object containing a key `type` describing the type of remix experience. Today, that type can be `full` for the full web editor, or `instant` for instant remix experience.
 
 Add a listener in your app to detect changes:
 ```
@@ -389,6 +392,17 @@ file in your `.koji` directory called `entitlements.json` with the body:
 
 When the app is shared to social networks, Koji automatically renders a share image based on an app screenshot. If you want to create a custom interface to screenshot, look for the query string paramter `koji-screenshot=1` in the URL. The screenshot size should be 1200x630.
 
-### Feed SDK (beta)
+### Feed SDK
 
-See documentation in `src/FeedSdk/index.js` for right now. More info coming soon!
+For Koji apps to render properly in the feed, they must implement the FeedSdk:
+
+```
+import { FeedSdk } from '@withkoji/vcc';
+const feed = new FeedSdk();
+```
+
+The Feed SDK has one required method, `feed.load()`, which registers touch event handlers to bubble touch events up to the feed controller. If your app needs to own a gesture and not bubble it up, you can call `feed.requestCancelTouch()` at any time during the touch event lifecycle (e.g., `ontouchmove`).
+
+If your app contains autoplaying media (audio/video) or state (play/pause), you can implement event listeners using `feed.onPlaybackStateChanged((isPlaying) => {})`. `isPlaying` will be true when your app is in view in the feed, and false when it is not.
+
+See documentation in `src/FeedSdk/index.js` for more detailed information.
