@@ -396,10 +396,10 @@ When the app is shared to social networks, Koji automatically renders a share im
 
 This package includes an Express middleware for resolving Instant Remix VCC data for dynamic backends, as a companion to the frontend `InstantRemixing` class. You can implement this middleware by adding it to your server:
 ```
-import { Middleware } from '@withkoji/vcc';
+import { VccMiddleware } from '@withkoji/vcc';
 
 const app = express();
-app.use(Middleware.express);
+app.use(VccMiddleware.express);
 ```
 
 Once implemented, you will be able to access application-specific VCC values in `res.locals.koji`:
