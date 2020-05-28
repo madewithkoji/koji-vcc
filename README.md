@@ -297,7 +297,7 @@ const subscription = Koji.configDidChange.subscribe(e => {
 subscription.release();
 ```
 
-### Instant Remixing (beta)
+### Instant Remixing
 
 To support instant remixing, import and instantiate the`InstantRemix` class:
 ```
@@ -391,6 +391,24 @@ file in your `.koji` directory called `entitlements.json` with the body:
 #### Share images
 
 When the app is shared to social networks, Koji automatically renders a share image based on an app screenshot. If you want to create a custom interface to screenshot, look for the query string paramter `koji-screenshot=1` in the URL. The screenshot size should be 1200x630.
+
+#### VCC Middleware for Dynamic Backends
+
+This package includes an Express middleware for resolving Instant Remix VCC data for dynamic backends, as a companion to the frontend `InstantRemixing` class. You can implement this middleware by adding it to your server:
+```
+import { Middleware } from '@withkoji/vcc';
+
+const app = express();
+app.use(Middleware.express);
+```
+
+Once implemented, you will be able to access application-specific VCC values in `res.locals.koji`:
+
+```
+app.get('/test', (req, res) => {
+  // res.locals.koji.scope.key
+});
+```
 
 ### Feed SDK
 

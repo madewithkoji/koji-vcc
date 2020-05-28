@@ -5,6 +5,8 @@ import SimpleEvent from './tools/SimpleEvent';
 import InstantRemixing from './InstantRemixing';
 import FeedSdk from './FeedSdk';
 
+import Middleware from './VccMiddleware';
+
 function deprecationNotice(method, isBreaking = false) {
   if (isBreaking) {
     console.warn(
@@ -69,4 +71,5 @@ export default {
 export {
   InstantRemixing,
   FeedSdk,
+  Middleware,
 };
