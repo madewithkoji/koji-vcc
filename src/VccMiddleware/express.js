@@ -3,7 +3,12 @@ import deepmerge from 'deepmerge';
 const config = require('../res/config.json');
 
 export default function vcc(req, res, next) {
-  const headerOverrides = req.headers['x-trusted-koji-overrides'] || {};
+  let headerOverrides = {};
+  try {
+    headerOverrides = JSON.parse(req.headers['x-trusted-koji-overrides'] || {});
+  } catch (err) {
+    //
+  }
   const resolvedConfig = deepmerge(
     config,
     headerOverrides,
