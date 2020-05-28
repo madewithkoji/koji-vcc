@@ -8,7 +8,6 @@ export default class InstantRemixing {
     this.listeners = [];
 
     this.resolvedConfig = config;
-    this.serviceMap = {};
 
     // Instant remixes inject VCC mutations into published apps using the
     // `window.KOJI_OVERRIDES` variable. If that variable is present when this
@@ -22,11 +21,6 @@ export default class InstantRemixing {
       );
     }
 
-    // The service map contains references to any other services in the app,
-    // like a backend. We need to look in the overrides to see if there's an
-    // updated service map available, so we can point to the correct one.
-    this.resolveServiceMap();
-
     this.isRemixing = false;
     this.editorAttributes = {};
     this.remixListeners = [];
@@ -38,24 +32,6 @@ export default class InstantRemixing {
     this.currentStateListeners = [];
 
     this.registerListeners();
-  }
-
-  resolveServiceMap() {
-    this.serviceMap = Object.keys(process.env).reduce((serviceMap, envVariable) => {
-      if (envVariable.startsWith('KOJI_SERVICE_URL')) {
-        const serviceName = envVariable.replace('KOJI_SERVICE_URL_', '').toLowerCase();
-        // eslint-disable-next-line no-param-reassign
-        serviceMap[serviceName] = process.env[envVariable];
-      }
-      return serviceMap;
-    }, {});
-
-    if (window.KOJI_OVERRIDES && window.KOJI_OVERRIDES.serviceMap) {
-      this.serviceMap = {
-        ...this.serviceMap,
-        ...window.KOJI_OVERRIDES.serviceMap,
-      };
-    }
   }
 
   // Get a value from the resolved Koji config, including any overrides from the
