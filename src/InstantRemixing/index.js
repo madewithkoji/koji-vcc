@@ -1,5 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import deepmerge from 'deepmerge';
+import objectPath from 'object-path';
 
 const config = require('../res/config.json');
 
@@ -182,7 +183,7 @@ export default class InstantRemixing {
   // (private) Update our local version of the config, and dispatch change
   // events to any callbacks we have registered
   emitChange(path, newValue) {
-    this.resolvedConfig[path[0]][path[1]] = newValue;
+    objectPath.set(this.resolvedConfig, path.join('.'), newValue);
     this.listeners.forEach((callback) => {
       callback(path, newValue);
     });
