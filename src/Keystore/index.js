@@ -1,3 +1,5 @@
+import fetch from 'node-fetch';
+
 /* eslint-disable class-methods-use-this */
 export default class Keystore {
   constructor(projectId, projectToken) {
