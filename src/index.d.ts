@@ -60,7 +60,11 @@ declare module "@withkoji/vcc" {
     load(): void;
     requestCancelTouch(): void;
     onPlaybackStateChanged(fn: (isPlaying: boolean) => void): void;
+  }
 
+  export class Keystore {
+    constructor(projectId?: string, projectToken?: string);
+    resolveValue(keyPath: string): Promise<string>;
   }
 }
 export default Koji;

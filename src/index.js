@@ -4,6 +4,7 @@ import SimpleEvent from './tools/SimpleEvent';
 
 import InstantRemixing from './InstantRemixing';
 import FeedSdk from './FeedSdk';
+import Keystore from './Keystore';
 
 import VccMiddleware from './VccMiddleware';
 
@@ -71,5 +72,6 @@ export default {
 export {
   InstantRemixing,
   FeedSdk,
+  Keystore,
   VccMiddleware,
 };
