@@ -1,6 +1,6 @@
 {
   "name": "@withkoji/vcc",
-  "version": "1.1.25",
+  "version": "1.1.26",
   "description": "A library that exposes VCC and ENV values for easy consumption in a Koji app",
   "main": "dist/index.js",
   "files": [
@@ -32,6 +32,11 @@
   "homepage": "https://withkoji.com",
   "typings": "./dist/index.d.ts",
   "dependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-transform-runtime": "^7.10.1",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/runtime": "^7.10.2",
     "ansi-colors-and-styles": "^1.0.3",
     "chokidar": "^3.0.2",
     "deep-diff": "^1.0.2",
@@ -47,11 +52,6 @@
     "child_process": false
   },
   "devDependencies": {
-    "@babel/cli": "^7.5.5",
-    "@babel/core": "^7.5.5",
-    "@babel/plugin-transform-runtime": "^7.10.1",
-    "@babel/preset-env": "^7.5.5",
-    "@babel/runtime": "^7.10.2",
     "eslint": "^6.2.2",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2"
