@@ -1,6 +1,6 @@
 {
   "name": "@withkoji/vcc",
-  "version": "1.1.26",
+  "version": "1.1.27",
   "description": "A library that exposes VCC and ENV values for easy consumption in a Koji app",
   "main": "dist/index.js",
   "files": [
