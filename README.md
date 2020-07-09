@@ -424,3 +424,5 @@ The Feed SDK has one required method, `feed.load()`, which registers touch event
 If your app contains autoplaying media (audio/video) or state (play/pause), you can implement event listeners using `feed.onPlaybackStateChanged((isPlaying) => {})`. `isPlaying` will be true when your app is in view in the feed, and false when it is not.
 
 See documentation in `src/FeedSdk/index.js` for more detailed information.
+
+To test an app in a feed scenario, you can append `?feedDebug=true` to your app's WithKoji.com URL. For example: `https://withkoji.com/~username/my-app?feedDebug=1`. When you are confident that your app is able to function well within a feed, please contact us and we will review and authorize it.
