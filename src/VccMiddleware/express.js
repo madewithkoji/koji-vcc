@@ -17,8 +17,10 @@ export default function vcc(req, res, next) {
   res.locals.koji = resolvedConfig;
 
   // Set env vars
-  process.env.KOJI_PROJECT_ID = req.headers['x-trusted-koji-project-id'] || process.env.KOJI_PROJECT_ID;
-  process.env.KOJI_PROJECT_TOKEN = req.headers['x-trusted-koji-project-token'] || process.env.KOJI_PROJECT_TOKEN;
+  if (typeof window === 'undefined') {
+    process.env.KOJI_PROJECT_ID = req.headers['x-trusted-koji-project-id'] || process.env.KOJI_PROJECT_ID;
+    process.env.KOJI_PROJECT_TOKEN = req.headers['x-trusted-koji-project-token'] || process.env.KOJI_PROJECT_TOKEN;
+  }
 
   next();
 }
