@@ -82,7 +82,7 @@ export default class FeedSdk {
   requestCancelTouch() {
     console.log('Canceled touch');
     window._KOJI_FEED_SDK_IS_BUBBLING_CURRENT_TOUCH = false;
-    this.postMessage('Koji.CancelTouch');
+    this._postMessage('Koji.CancelTouch');
   }
 
   // In a feed view, apps are preloaded when they near the viewport. For most
