@@ -8,15 +8,17 @@ export default class InstantRemixing {
   constructor() {
     this.listeners = [];
 
-    this.resolvedConfig = config;
+    // Use a global here to force a singleton-ish state across multiple
+    // instantiations
+    window.KOJI_VCC_RESOLVED_CONFIG = window.KOJI_VCC_RESOLVED_CONFIG || config;
 
     // Instant remixes inject VCC mutations into published apps using the
     // `window.KOJI_OVERRIDES` variable. If that variable is present when this
     // class is instantiated, merge the values present in that object with
     // the config file that is present on disk.
     if (window.KOJI_OVERRIDES && window.KOJI_OVERRIDES.overrides) {
-      this.resolvedConfig = deepmerge(
-        this.resolvedConfig,
+      window.KOJI_VCC_RESOLVED_CONFIG = deepmerge(
+        window.KOJI_VCC_RESOLVED_CONFIG,
         window.KOJI_OVERRIDES.overrides,
         { arrayMerge: (dest, source) => source },
       );
@@ -39,7 +41,7 @@ export default class InstantRemixing {
   // global space, or processed changes from our event listeners. `path` is an
   // array of keys pointing to the desired value
   get(path) {
-    let pointer = this.resolvedConfig;
+    let pointer = window.KOJI_VCC_RESOLVED_CONFIG;
     for (let i = 0; i < path.length; i += 1) {
       pointer = pointer[path[i]];
     }
@@ -83,7 +85,7 @@ export default class InstantRemixing {
   // Explicitly set a value for a VCC at a path
   onSetValue(path, newValue, skipUpdate = false) {
     // Save in our resolved config for future getters
-    objectPath.set(this.resolvedConfig, path.join('.'), newValue);
+    objectPath.set(window.KOJI_VCC_RESOLVED_CONFIG, path.join('.'), newValue);
 
     // Push up to the parent
     if (window.parent) {
@@ -188,7 +190,7 @@ export default class InstantRemixing {
   // (private) Update our local version of the config, and dispatch change
   // events to any callbacks we have registered
   emitChange(path, newValue) {
-    objectPath.set(this.resolvedConfig, path.join('.'), newValue);
+    objectPath.set(window.KOJI_VCC_RESOLVED_CONFIG, path.join('.'), newValue);
     this.listeners.forEach((callback) => {
       callback(path, newValue);
     });
