@@ -82,6 +82,10 @@ export default class InstantRemixing {
 
   // Explicitly set a value for a VCC at a path
   onSetValue(path, newValue, skipUpdate = false) {
+    // Save in our resolved config for future getters
+    objectPath.set(this.resolvedConfig, path.join('.'), newValue);
+
+    // Push up to the parent
     if (window.parent) {
       window.parent.postMessage({
         _type: 'KojiPreview.SetValue',
