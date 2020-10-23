@@ -185,16 +185,24 @@ export default class FeedSdk {
       if (data._type === 'Koji.ContextPassthrough.Down') {
         try {
           const destinationOrigin = data._path[0];
-          console.log('debug down', data);
           const frame = document.querySelectorAll('iframe').find(({ src }) => src === destinationOrigin);
+          console.log('debug down', data, frame);
           if (frame) {
-            frame.postMessage({
-              ...data,
-              _path: data._path.slice(1),
-            }, '*');
+            const newPath = data._path.slice(1);
+            console.log(newPath);
+            if (newPath.length === 0) {
+              frame.contentWindow.postMessage({
+                ...data.originalMessage,
+              }, '*');
+            } else {
+              frame.contentWindow.postMessage({
+                ...data,
+                _path: data._path.slice(1),
+              }, '*');
+            }
           }
         } catch (err) {
-          //
+          console.log(err);
         }
       }
     });
