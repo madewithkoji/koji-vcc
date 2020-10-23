@@ -140,7 +140,7 @@ export default class FeedSdk {
 
   // (private) Register event listeners
   _registerListeners() {
-    window.addEventListener('message', ({ data, origin, source }) => {
+    window.addEventListener('message', ({ data, origin }) => {
       // Handle state changes
       if (data.event === 'KojiFeed.Play') {
         try {
@@ -166,12 +166,16 @@ export default class FeedSdk {
       // Handle passthrough of messages from any Kojis inside this Koji
       if (data._type === 'Koji.ContextPassthrough.Up') {
         try {
-          window._KOJI_FEED_SDK_PASSTHROUGH_ORIGIN_MAP[origin] = source;
+          console.log('debug up', data);
+
           // Mutate the source map to add the context
           if (window.parent) {
             window.parent.postMessage({
               ...data,
-              _path: (data._path || []).push(origin),
+              _path: [
+                origin,
+                ...(data._path || []),
+              ],
             }, '*');
           }
         } catch (err) {
@@ -181,8 +185,10 @@ export default class FeedSdk {
       if (data._type === 'Koji.ContextPassthrough.Down') {
         try {
           const destinationOrigin = data._path[0];
-          if (window._KOJI_FEED_SDK_PASSTHROUGH_ORIGIN_MAP[destinationOrigin]) {
-            window._KOJI_FEED_SDK_PASSTHROUGH_ORIGIN_MAP[destinationOrigin].postMessage({
+          console.log('debug down', data);
+          const frame = document.querySelectorAll('iframe').find(({ src }) => src === destinationOrigin);
+          if (frame) {
+            frame.postMessage({
               ...data,
               _path: data._path.slice(1),
             }, '*');
