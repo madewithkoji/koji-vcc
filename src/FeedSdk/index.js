@@ -7,6 +7,7 @@ export default class FeedSdk {
     // multiple times at different timestamps in the app
     window._KOJI_FEED_SDK_IS_PLAYING = !window.location.hash.includes('#koji-feed-key=');
     window._KOJI_FEED_SDK_IS_BUBBLING_CURRENT_TOUCH = true;
+    window._KOJI_FEED_SDK_PASSTHROUGH_ORIGIN_MAP = {};
 
     this._playbackListeners = [];
     this._registerListeners();
@@ -137,11 +138,11 @@ export default class FeedSdk {
     }
   }
 
-  // (private) Register event listeners for changes to the play state
+  // (private) Register event listeners
   _registerListeners() {
-    window.addEventListener('message', ({ data }) => {
-      const { event } = data;
-      if (event === 'KojiFeed.Play') {
+    window.addEventListener('message', ({ data, origin, source }) => {
+      // Handle state changes
+      if (data.event === 'KojiFeed.Play') {
         try {
           window._KOJI_FEED_SDK_IS_PLAYING = true;
           this._playbackListeners.forEach((callback) => {
@@ -151,8 +152,7 @@ export default class FeedSdk {
           console.log(err);
         }
       }
-
-      if (event === 'KojiFeed.Pause') {
+      if (data.event === 'KojiFeed.Pause') {
         try {
           window._KOJI_FEED_SDK_IS_PLAYING = false;
           this._playbackListeners.forEach((callback) => {
@@ -160,6 +160,35 @@ export default class FeedSdk {
           });
         } catch (err) {
           console.log(err);
+        }
+      }
+
+      // Handle passthrough of messages from any Kojis inside this Koji
+      if (data._type === 'Koji.ContextPassthrough.Up') {
+        try {
+          window._KOJI_FEED_SDK_PASSTHROUGH_ORIGIN_MAP[origin] = source;
+          // Mutate the source map to add the context
+          if (window.parent) {
+            window.parent.postMessage({
+              ...data,
+              _path: (data._path || []).push(origin),
+            }, '*');
+          }
+        } catch (err) {
+          //
+        }
+      }
+      if (data._type === 'Koji.ContextPassthrough.Down') {
+        try {
+          const destinationOrigin = data._path[0];
+          if (window._KOJI_FEED_SDK_PASSTHROUGH_ORIGIN_MAP[destinationOrigin]) {
+            window._KOJI_FEED_SDK_PASSTHROUGH_ORIGIN_MAP[destinationOrigin].postMessage({
+              ...data,
+              _path: data._path.slice(1),
+            }, '*');
+          }
+        } catch (err) {
+          //
         }
       }
     });
