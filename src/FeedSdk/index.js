@@ -166,8 +166,6 @@ export default class FeedSdk {
       // Handle passthrough of messages from any Kojis inside this Koji
       if (data._type === 'Koji.ContextPassthrough.Up') {
         try {
-          console.log('debug up', data);
-
           // Mutate the source map to add the context
           if (window.parent) {
             window.parent.postMessage({
@@ -185,12 +183,10 @@ export default class FeedSdk {
       if (data._type === 'Koji.ContextPassthrough.Down') {
         try {
           const destinationOrigin = data._path[0];
-          const frame = document.querySelectorAll('iframe').find(({ src }) => src === destinationOrigin);
-          console.log('debug down', data, frame);
+          const frame = Array.from(document.getElementsByTagName('iframe'))
+            .find(({ src }) => src.startsWith(destinationOrigin));
           if (frame) {
-            const newPath = data._path.slice(1);
-            console.log(newPath);
-            if (newPath.length === 0) {
+            if (data._path.length === 0) {
               frame.contentWindow.postMessage({
                 ...data.originalMessage,
               }, '*');
