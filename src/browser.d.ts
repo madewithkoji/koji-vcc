@@ -30,6 +30,8 @@ declare module "@withkoji/vcc" {
     load(): void;
     requestCancelTouch(): void;
     onPlaybackStateChanged(fn: (isPlaying: boolean) => void): void;
+    navigate(url: string): void;
+    present(url: string): void;
   }
 }
 export default Koji;

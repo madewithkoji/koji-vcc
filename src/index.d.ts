@@ -6,39 +6,8 @@
 import { Config } from './res/config.json';
 
 declare module "@withkoji/vcc" {
-  class Handle {
-    constructor(onRelease: () => void);
-    get isReleased(): boolean;
-    release(): boolean;
-  }
-
-  interface ConfigDiff {
-    newValue: any;
-    previousValue: any;
-    path: string[];
-  }
-
-  interface ConfigDidChangeArgs {
-    newValue: any;
-    previousValue: any;
-    changes: ConfigDiff[];
-  }
-
-  type SimpleEventHandler<T> = (value: T) => void;
-
-  export class SimpleEvent<T> {
-    subscribe(handler: SimpleEventHandler<T>, includeLast?: boolean): Handle;
-    emit(value: T): void;
-  }
-
   export namespace Koji {
     const config: Config;
-    const configDidChange: SimpleEvent<ConfigDidChangeArgs>;
-    function resolveSecret(key: string): string | null;
-    function pageLoad(): void;
-    function on(): void;
-    function request(): void;
-    function pwaPrompt(): void;
   }
 
   export class InstantRemixing {
@@ -61,6 +30,8 @@ declare module "@withkoji/vcc" {
     load(): void;
     requestCancelTouch(): void;
     onPlaybackStateChanged(fn: (isPlaying: boolean) => void): void;
+    navigate(url: string): void;
+    present(url: string): void;
   }
 
   export class Keystore {
@@ -68,4 +39,5 @@ declare module "@withkoji/vcc" {
     resolveValue(keyPath: string): Promise<string>;
   }
 }
+
 export default Koji;

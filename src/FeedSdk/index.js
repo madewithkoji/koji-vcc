@@ -94,6 +94,32 @@ export default class FeedSdk {
     this._playbackListeners.push(callback);
   }
 
+  // Navigation methods allow the Koji to load other content without triggering
+  // a browser navigation event (which can be clunky in embedded contexts).
+  // These methods are intended to load other Kojis, but they will also handle
+  // ordinary URLs. Many sites do not allow themselves to be framed (via the
+  // `x-frame-options` header), so if you try to use one of the navigation
+  // methods to load a URL and the URL can not be framed, the user will be
+  // prompted to navigate at the browser level.
+
+  // Navigate replaces the currently loaded Koji with the content of `url`
+  navigate(url) {
+    this._postMessage('Koji.Navigate', {
+      url,
+    });
+  }
+
+  // Present presents the currently loaded Koji in a sheet that animates from
+  // the bottom of the screen. If the parent Koji is already presented in a
+  // modal, presenting a new Koji will navigate within the sheet instead of
+  // presenting another sheet.
+  present(url) {
+    this._postMessage('Koji.Navigate', {
+      url,
+      presentationType: 'modal',
+    });
+  }
+
   // (private) Send a message to the parent, if one exists. Include a "feed token"
   // that we grab from the hash so we can identify messages originating
   // from this specific app in case it, for whatever reason, appears multiple
