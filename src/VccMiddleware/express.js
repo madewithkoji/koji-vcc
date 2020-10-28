@@ -2,10 +2,23 @@ import deepmerge from 'deepmerge';
 
 const config = require('../res/config.json');
 
+// Overrides coming from the headers are URL-encoded, so we need to decode them
+// before using them
+const decodeObject = (obj) => {
+  Object.keys(obj).forEach((key) => {
+    if (obj[key] && typeof obj[key] === 'object') {
+      decodeObject(obj[key]);
+      return;
+    }
+    obj[key] = decodeURI(obj[key]);
+  });
+}
+
 export default function vcc(req, res, next) {
   let headerOverrides = {};
   try {
     headerOverrides = JSON.parse(req.headers['x-trusted-koji-overrides'] || {});
+    decodeObject(headerOverrides);
   } catch (err) {
     //
   }
