@@ -185,6 +185,22 @@ export default class InstantRemixing {
         console.log(err);
       }
     });
+
+    // Pass up click events so we can display context menus
+    window.addEventListener('click', (e) => {
+      try {
+        const { clientX, clientY } = e;
+        if (window.parent) {
+          window.parent.postMessage({
+            _type: 'KojiPreview.ClickEvent',
+            x: clientX,
+            y: clientY,
+          }, '*');
+        }
+      } catch (err) {
+        //
+      }
+    }, { capture: true, passive: true });
   }
 
   // (private) Update our local version of the config, and dispatch change
