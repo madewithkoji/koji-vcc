@@ -1,4 +1,5 @@
 # Koji VCC
+![npm (scoped)](https://img.shields.io/npm/v/@withkoji/vcc?color=green&style=flat-square)
 
 **Core library for developing remixable Koji templates.**
 
