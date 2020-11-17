@@ -98,6 +98,21 @@ export default class InstantRemixing {
     }
   }
 
+  /**
+   * Create a new remix
+   options: {
+     resetValues: boolean = false,
+   }
+  */
+  onCreateRemix(options = {}) {
+    if (window.parent) {
+      window.parent.postMessage({
+        _type: 'KojiPreview.CreateRemix',
+        options,
+      }, '*');
+    }
+  }
+
   // Required to notify parent containers that the window is ready to receive
   // events over the wire. Parent is responsible for queueing events and
   // redispatching them if the app is not ready to receive them.
