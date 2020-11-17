@@ -121,6 +121,18 @@ export default class FeedSdk {
     });
   }
 
+  /**
+   * Create a new remix
+   options: {
+     resetValues: boolean = false,
+   }
+  */
+  createRemix(options = {}) {
+    this._postMessage('Koji.CreateRemix', {
+      options,
+    });
+  }
+
   // (private) Send a message to the parent, if one exists. Include a "feed token"
   // that we grab from the hash so we can identify messages originating
   // from this specific app in case it, for whatever reason, appears multiple
