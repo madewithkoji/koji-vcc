@@ -124,6 +124,7 @@ export default class FeedSdk {
   /**
    * Create a new remix
    options: {
+     id: string|undefined // if not present, will remix the current Koji
      resetValues: boolean = false,
    }
   */
