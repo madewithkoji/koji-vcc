@@ -43,7 +43,7 @@ export default class Keystore {
   // minutes. If you wish to apply querystring parameters to use the image
   // api (?width=, etc.), apply those parameters to the signed URL, not to the
   // resource argument.
-  generateSignedUrl(resource, expirySeconds) {
+  async generateSignedUrl(resource, expirySeconds) {
     const request = await fetch(
       this.buildUri('/v1/cdn/signedRequest/create'),
       {
