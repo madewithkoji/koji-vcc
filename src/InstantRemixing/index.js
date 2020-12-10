@@ -109,6 +109,19 @@ export default class InstantRemixing {
     }
   }
 
+  // If the Koji supports InstantRemixingNativeNavigation as an entitlement,
+  // the Koji remix editor does not show a next button, but rather requires this
+  // method to be called in order to advance to the preview. This allows the
+  // Koji to handle validation and other things before advancing, if it chooses
+  // to do so.
+  finish() {
+    if (window.parent) {
+      window.parent.postMessage({
+        _type: 'KojiPreview.Finish',
+      }, '*');
+    }
+  }
+
   // (private) Register event listeners for changes
   registerListeners() {
     // Coming in from an iframe (instant remix)
