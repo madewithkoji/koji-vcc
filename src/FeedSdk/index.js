@@ -133,6 +133,13 @@ export default class FeedSdk {
     });
   }
 
+  /**
+   * Programmtically show the Koji's share sheet
+   */
+  share() {
+    this._postMessage('Koji.Share');
+  }
+
   // (private) Send a message to the parent, if one exists. Include a "feed token"
   // that we grab from the hash so we can identify messages originating
   // from this specific app in case it, for whatever reason, appears multiple
