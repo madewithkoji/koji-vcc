@@ -5,7 +5,7 @@
 
 ## Overview
 
-**NOTE:**
+**[DEPRECATED]**
 This package is deprecated and is included only for backwards compatibility. For new templates, use [@withkoji/core](https://developer.withkoji.com/reference/packages/withkoji-koji-core).
 
 The @withkoji/vcc package enables you to implement core platform features in your Koji template, including instant remixing, Visual Customization Controls (VCCs), and the Koji feed.
