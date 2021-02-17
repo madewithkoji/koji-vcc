@@ -1,6 +1,6 @@
 {
   "name": "@withkoji/vcc",
-  "version": "1.1.47",
+  "version": "1.1.48",
   "description": "Core library for developing remixable Koji templates",
   "main": "dist/index.js",
   "browser": "dist/browser.js",
