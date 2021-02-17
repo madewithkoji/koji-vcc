@@ -5,6 +5,9 @@
 
 ## Overview
 
+**[DEPRECATED]**
+This package is deprecated and is included only for backwards compatibility. For new templates, use [@withkoji/core](https://developer.withkoji.com/reference/packages/withkoji-koji-core).
+
 The @withkoji/vcc package enables you to implement core platform features in your Koji template, including instant remixing, Visual Customization Controls (VCCs), and the Koji feed.
 
 ## Installation
@@ -127,4 +130,4 @@ const keystore = new Keystore();
 
 See the [contributions page](https://developer.withkoji.com/docs/about/contribute-koji-developers) on the developer site for info on how to make contributions to Koji repositories and developer documentation.
 
-For any questions, reach out to the developer community or the `@Koji Team` on our [Discord server](https://discord.gg/eQuMJF6).
+For any questions, reach out to the developer community or the `@Koji Team` on our [Discord server](https://discord.com/invite/9egkTWf4ec).
