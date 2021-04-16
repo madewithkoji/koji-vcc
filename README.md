@@ -1,14 +1,15 @@
-# Koji VCC
+# Koji VCC (deprecated)
 ![npm (scoped)](https://img.shields.io/npm/v/@withkoji/vcc?color=green&style=flat-square)
 
 **Core library for developing remixable Koji templates.**
 
 ## Overview
 
-**[DEPRECATED]**
-This package is deprecated and is included only for backwards compatibility. For new templates, use [@withkoji/core](https://developer.withkoji.com/reference/packages/withkoji-koji-core).
-
 The @withkoji/vcc package enables you to implement core platform features in your Koji template, including instant remixing, Visual Customization Controls (VCCs), and the Koji feed.
+
+**[DEPRECATED]**
+This package is deprecated and is included only for backwards compatibility.
+For new templates, use [@withkoji/core](https://developer.withkoji.com/reference/core/withkoji-koji-core).
 
 ## Installation
 
@@ -121,9 +122,8 @@ const keystore = new Keystore();
 
 ## Related resources
 
-- [Package documentation](https://developer.withkoji.com/reference/packages/withkoji-vcc-package)
+- [Package documentation](https://developer.withkoji.com/reference/deprecated-packages/withkoji-vcc-package)
 - [What is remixing?](https://developer.withkoji.com/docs/getting-started/instant-remixing)
-- [Developing your first Koji template](https://developer.withkoji.com/docs/getting-started/start-guide-1)
 - [Koji homepage](http://withkoji.com/)
 
 ## Contributions and questions
